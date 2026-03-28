@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Play Wordle Online Free - Joy Grid</title>
+<meta name="description" content="Play Wordle online for free at Joy Grid. Guess the 5-letter word in 6 tries. Daily puzzles and unlimited mode. No download required.">
+<meta name="keywords" content="wordle online, free wordle, word game, guess the word, 5 letter word game, daily wordle">
+<link rel="canonical" href="https://joy-grid.com/wordle.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="google-site-verification" content="7DqxoOPpfo0PQeDNIBDzLEqJ08DLbEXdFALsN3DRTM8" />
+<meta property="og:title" content="Play Wordle Online Free - Joy Grid">
+<meta property="og:description" content="Guess the 5-letter word in 6 tries. Daily puzzles and unlimited mode!">
+<meta property="og:url" content="https://joy-grid.com/wordle.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Play Wordle Online Free - Joy Grid">
+<meta name="twitter:description" content="Guess the 5-letter word in 6 tries!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#faf8f5;--text:#2d2a26;--text-soft:#6b6560;
+  --accent:#6aaa64;--accent-dark:#538d4e;
+  --correct:#6aaa64;--present:#c9b458;--absent:#787c7e;
+  --cell-border:#d3d6da;--cell-border-active:#878a8c;
+  --card-shadow:0 4px 20px rgba(0,0,0,0.08);
+  --radius:16px;
+}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,0,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 24px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.6rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-grid{display:grid;grid-template-columns:repeat(2,10px);gap:3px}
+.logo-grid span{width:10px;height:10px;border-radius:3px}
+.logo-grid span:nth-child(1){background:#ff6b35}
+.logo-grid span:nth-child(2){background:#4ecdc4}
+.logo-grid span:nth-child(3){background:#7c5cbf}
+.logo-grid span:nth-child(4){background:#ffd93d}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--text-soft);font-weight:600;font-size:0.95rem;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+
+.game-container{max-width:500px;margin:0 auto;padding:24px 16px 48px;position:relative;z-index:1}
+.game-header{text-align:center;margin-bottom:16px}
+.game-header h1{font-family:'Fredoka',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:4px}
+.game-header p{color:var(--text-soft);font-size:0.9rem}
+
+.mode-btns{display:flex;gap:4px;justify-content:center;margin-bottom:16px}
+.mode-btn{
+  padding:6px 16px;border:2px solid #ddd;border-radius:20px;
+  background:none;font-family:'Nunito',sans-serif;font-weight:600;
+  font-size:0.82rem;cursor:pointer;transition:all 0.2s;color:var(--text-soft);
+}
+.mode-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.mode-btn:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+
+/* Board */
+.board{display:grid;grid-template-rows:repeat(6,1fr);gap:5px;margin:0 auto 20px;max-width:330px}
+.row{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.tile{
+  width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1.4rem,5vw,2rem);font-weight:700;
+  text-transform:uppercase;
+  border:2px solid var(--cell-border);border-radius:4px;
+  transition:transform 0.1s;
+  user-select:none;-webkit-user-select:none;
+}
+.tile.filled{border-color:var(--cell-border-active);animation:pop 0.1s ease}
+.tile.correct{background:var(--correct);color:#fff;border-color:var(--correct)}
+.tile.present{background:var(--present);color:#fff;border-color:var(--present)}
+.tile.absent{background:var(--absent);color:#fff;border-color:var(--absent)}
+.tile.reveal{animation:flip 0.5s ease}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes flip{0%{transform:rotateX(0)}50%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
+.row.shake{animation:shake 0.4s ease}
+
+/* Keyboard */
+.keyboard{display:flex;flex-direction:column;gap:6px;align-items:center}
+.kb-row{display:flex;gap:4px}
+.key{
+  min-width:32px;height:52px;border:none;border-radius:6px;
+  background:#d3d6da;font-family:'Nunito',sans-serif;font-weight:700;
+  font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  text-transform:uppercase;transition:background 0.15s,color 0.15s;
+  -webkit-tap-highlight-color:transparent;color:var(--text);
+  padding:0 6px;
+}
+.key.wide{min-width:56px;font-size:0.75rem}
+.key:active{transform:scale(0.95)}
+.key.correct{background:var(--correct);color:#fff}
+.key.present{background:var(--present);color:#fff}
+.key.absent{background:var(--absent);color:#fff}
+
+/* Message */
+.msg{
+  text-align:center;font-weight:700;font-size:0.95rem;
+  min-height:28px;margin-bottom:8px;
+  color:var(--text);
+}
+
+/* Win/Lose overlay */
+.overlay{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.5);z-index:200;
+  justify-content:center;align-items:center;
+}
+.overlay.show{display:flex}
+.overlay-card{
+  background:#fff;border-radius:var(--radius);padding:36px;
+  text-align:center;max-width:360px;margin:20px;width:90%;
+  animation:popIn 0.4s ease;
+}
+.overlay-card h2{font-family:'Fredoka',sans-serif;font-size:1.8rem;margin-bottom:8px}
+.overlay-card p{color:var(--text-soft);margin-bottom:20px;line-height:1.5}
+.overlay-card .play-btn{
+  padding:12px 32px;border:none;border-radius:12px;
+  background:var(--accent);color:#fff;font-family:'Fredoka',sans-serif;
+  font-size:1.05rem;font-weight:600;cursor:pointer;transition:transform 0.2s;
+}
+.overlay-card .play-btn:hover{transform:scale(1.05)}
+
+/* Share buttons */
+.share-section{margin-top:20px;padding-top:20px;border-top:1px solid #eee}
+.share-label{font-size:0.85rem;color:var(--text-soft);margin-bottom:10px;font-weight:600}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-btn{
+  width:44px;height:44px;border:none;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:transform 0.15s;
+  -webkit-tap-highlight-color:transparent;
+  font-size:1.2rem;color:#fff;font-weight:700;
+  font-family:'Nunito',sans-serif;
+}
+.share-btn:hover{transform:scale(1.1)}
+.share-btn:active{transform:scale(0.95)}
+.share-btn.twitter{background:#000}
+.share-btn.facebook{background:#1877F2;font-size:1.4rem}
+.share-btn.whatsapp{background:#25D366}
+.share-btn.native-share{background:var(--accent);font-size:1.3rem}
+.share-btn.copy-link{background:#6b6560;font-size:1.2rem}
+.share-toast{
+  display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:#333;color:#fff;padding:10px 24px;border-radius:10px;
+  font-size:0.9rem;font-weight:600;z-index:300;
+  animation:fadeInUp 0.3s ease;
+}
+.share-toast.show{display:block}
+@keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+
+footer{text-align:center;padding:24px;color:var(--text-soft);font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.06);position:relative;z-index:1}
+footer a{color:var(--accent);text-decoration:none}
+
+@media(max-width:640px){
+  .nav-links{display:none}
+  .game-container{padding:16px 10px 32px}
+  .key{min-width:28px;height:48px;font-size:0.78rem}
+  .key.wide{min-width:48px;font-size:0.7rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-grid"><span></span><span></span><span></span><span></span></div>
+      Joy Grid
+    </a>
+    <div class="nav-links">
+      <a href="/sudoku.html">Sudoku</a>
+      <a href="/2048.html">2048</a>
+      <a href="/wordle.html" class="active">Wordle</a>
+    </div>
+  </div>
+</nav>
+
+<div class="game-container">
+  <div class="game-header">
+    <h1>Wordle</h1>
+    <p>Guess the 5-letter word in 6 tries</p>
+  </div>
+
+  <div class="mode-btns">
+    <button class="mode-btn active" id="dailyBtn" onclick="setMode('daily')">Daily</button>
+    <button class="mode-btn" id="unlimitedBtn" onclick="setMode('unlimited')">Unlimited</button>
+  </div>
+
+  <div class="msg" id="msg"></div>
+  <div class="board" id="board"></div>
+  <div class="keyboard" id="keyboard"></div>
+</div>
+
+<div class="overlay" id="resultOverlay">
+  <div class="overlay-card">
+    <h2 id="resultTitle"></h2>
+    <p id="resultMsg"></p>
+    <button class="play-btn" id="resultBtn" onclick="playAgain()">Play Again</button>
+    <div class="share-section">
+      <div class="share-label">Share your result</div>
+      <div class="share-btns">
+        <button class="share-btn native-share" id="nativeShareBtn" onclick="nativeShare()" title="Share">📤</button>
+        <button class="share-btn twitter" onclick="shareTwitter()" title="Share on X">𝕏</button>
+        <button class="share-btn facebook" onclick="shareFacebook()" title="Share on Facebook">f</button>
+        <button class="share-btn whatsapp" onclick="shareWhatsApp()" title="Share on WhatsApp">WA</button>
+        <button class="share-btn copy-link" onclick="copyShareText()" title="Copy result">📋</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="share-toast" id="shareToast">Copied!</div>
+
+<footer>
+  <p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p>
+</footer>
+
+<script>
+// ===== WORD LIST =====
+const WORDS = [
+  "about","above","abuse","actor","acute","admit","adopt","adult","after","again",
+  "agent","agree","ahead","alarm","album","alert","alien","align","alive","alley",
+  "allow","alone","along","alter","among","angel","anger","angle","angry","apart",
+  "apple","apply","arena","argue","arise","armor","array","aside","asset","avoid",
+  "award","aware","badly","baker","basic","basis","beach","begun","being","below",
+  "bench","billy","birth","black","blade","blame","bland","blank","blast","blaze",
+  "bleed","blend","bless","blind","block","blood","bloom","blown","board","bonus",
+  "boost","bound","brain","brand","brave","bread","break","breed","brick","brief",
+  "bring","broad","broke","brook","brown","brush","buddy","build","bunch","burst",
+  "buyer","cabin","cable","camel","candy","cargo","carry","catch","cause","cease",
+  "chain","chair","chalk","champ","chaos","charm","chart","chase","cheap","check",
+  "cheek","cheer","chess","chest","chief","child","chill","china","choir","chunk",
+  "civic","civil","claim","clash","class","clean","clear","clerk","click","cliff",
+  "climb","cling","clock","clone","close","cloth","cloud","coach","coast","color",
+  "comet","comic","coral","count","court","cover","crack","craft","crane","crash",
+  "crazy","cream","creek","crime","crisp","cross","crowd","cruel","crush","curve",
+  "cycle","daily","dance","dealt","debut","decay","delay","demon","dense","depth",
+  "derby","devil","diary","dirty","diver","dizzy","dodge","doing","donor","doubt",
+  "dough","draft","drain","drake","drama","drank","drawn","dream","dress","dried",
+  "drift","drill","drink","drive","drone","drops","drove","drunk","dryer","dying",
+  "eager","early","earth","eight","elder","elect","elite","email","empty","enemy",
+  "enjoy","enter","entry","equal","error","essay","event","every","exact","exist",
+  "extra","faint","fairy","faith","false","fancy","fatal","fault","feast","fence",
+  "fewer","fiber","field","fifty","fight","final","first","fixed","flame","flash",
+  "fleet","flesh","float","flood","floor","flour","fluid","flush","focal","focus",
+  "force","forge","forth","forum","found","frame","frank","fraud","fresh","front",
+  "frost","froze","fruit","fully","funny","ghost","giant","given","glass","gleam",
+  "globe","gloom","glory","glove","going","grace","grade","grain","grand","grant",
+  "graph","grasp","grass","grave","great","greed","green","greet","grief","grill",
+  "grind","groan","groom","gross","group","grove","grown","guard","guess","guest",
+  "guide","guilt","guy","habit","happy","harsh","haven","heart","heavy","hence",
+  "herbs","honey","honor","horse","hotel","house","human","humor","ideal","image",
+  "imply","incur","index","indie","infer","inner","input","irony","issue","ivory",
+  "jewel","joint","joker","judge","juice","juicy","jumbo","karma","kayak","knack",
+  "kneel","knife","knock","known","label","labor","large","laser","later","laugh",
+  "layer","learn","lease","leave","legal","lemon","level","light","limit","linen",
+  "liver","lobby","local","logic","loose","lover","lower","loyal","lucky","lunch",
+  "magic","major","maker","manor","maple","march","match","mayor","media","mercy",
+  "merge","merit","metal","meter","might","miner","minor","minus","mixed","model",
+  "money","month","moral","motor","mount","mouse","mouth","movie","music","naive",
+  "nerve","never","newly","night","noble","noise","north","noted","novel","nurse",
+  "occur","ocean","offer","often","olive","opera","orbit","order","other","ought",
+  "outer","owner","oxide","paint","panel","panic","paper","party","pasta","patch",
+  "pause","peace","pearl","penny","phase","phone","photo","piano","piece","pilot",
+  "pitch","pixel","pizza","place","plain","plane","plant","plate","plaza","plead",
+  "pluck","plumb","plus","point","polar","porch","poser","pound","power","press",
+  "price","pride","prime","prince","print","prior","prize","probe","prone","proof",
+  "proud","prove","psalm","pulse","punch","pupil","purse","quest","queen","query",
+  "queue","quick","quiet","quota","quote","radar","radio","raise","rally","ranch",
+  "range","rapid","ratio","razor","reach","react","ready","realm","rebel","refer",
+  "reign","relax","renew","repay","reply","rider","ridge","rifle","right","rigid",
+  "rival","river","robin","robot","rocky","roman","roots","rough","round","route",
+  "royal","rugby","ruler","rural","sadly","saint","salad","sauce","scale","scare",
+  "scene","scope","score","sense","serve","seven","shade","shake","shall","shame",
+  "shape","share","shark","sharp","shear","sheep","sheer","sheet","shelf","shell",
+  "shift","shine","shirt","shock","shoot","shore","short","shout","sight","sigma",
+  "silly","since","sixth","sixty","sized","skill","skull","slash","sleep","slice",
+  "slide","slope","smart","smell","smile","smoke","snake","solar","solid","solve",
+  "sorry","south","space","spare","spark","speak","speed","spend","spice","spine",
+  "spite","split","spoke","spoon","sport","spray","squad","stack","staff","stage",
+  "stain","stake","stale","stall","stamp","stand","stare","stark","start","state",
+  "stave","stays","steady","steam","steel","steep","steer","stick","stiff","still",
+  "stock","stone","stood","store","storm","story","stout","stove","strip","stuck",
+  "study","stuff","style","sugar","suite","sunny","super","surge","swamp","swear",
+  "sweat","sweep","sweet","swept","swift","swing","sword","syrup","table","taste",
+  "teach","teeth","thank","theme","there","thick","thing","think","third","those",
+  "three","threw","throw","thumb","tiger","tight","timer","tired","title","today",
+  "token","total","touch","tough","towel","tower","toxic","trace","track","trade",
+  "trail","train","trait","trash","treat","trend","trial","tribe","trick","tried",
+  "troop","truck","truly","trump","trunk","trust","truth","tumor","twice","twist",
+  "ultra","uncle","under","unify","union","unite","unity","until","upper","upset",
+  "urban","usage","usual","valid","value","vapor","vault","verse","video","vigor",
+  "viral","virus","visit","vital","vivid","vocal","voice","voter","waist","waste",
+  "watch","water","weary","weave","wedge","weigh","weird","wheat","wheel","where",
+  "which","while","white","whole","whose","wider","woman","world","worry","worse",
+  "worst","worth","would","wound","wrist","write","wrong","wrote","yacht","yield",
+  "young","yours","youth","zebra"
+];
+
+// ===== GAME STATE =====
+let mode = 'daily';
+let answer = '';
+let guesses = [];
+let currentGuess = '';
+let currentRow = 0;
+let gameOver = false;
+let letterStates = {}; // track keyboard colors
+
+const ROWS = 6;
+const COLS = 5;
+
+function getDailyWord() {
+  const start = new Date('2026-01-01').getTime();
+  const now = new Date().setHours(0,0,0,0);
+  const dayNum = Math.floor((now - start) / 86400000);
+  return WORDS[dayNum % WORDS.length].toUpperCase();
+}
+
+function getDailyNumber() {
+  const start = new Date('2026-01-01').getTime();
+  const now = new Date().setHours(0,0,0,0);
+  return Math.floor((now - start) / 86400000) + 1;
+}
+
+function getRandomWord() {
+  return WORDS[Math.floor(Math.random() * WORDS.length)].toUpperCase();
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('dailyBtn').classList.toggle('active', m === 'daily');
+  document.getElementById('unlimitedBtn').classList.toggle('active', m === 'unlimited');
+  if (m === 'daily') {
+    // Check if already played today
+    const saved = localStorage.getItem('wordle_daily_' + getDailyNumber());
+    if (saved) {
+      const data = JSON.parse(saved);
+      answer = data.answer;
+      guesses = data.guesses;
+      currentRow = guesses.length;
+      gameOver = data.gameOver;
+      letterStates = data.letterStates || {};
+      renderBoard();
+      renderKeyboard();
+      if (gameOver) {
+        setTimeout(() => showResult(guesses[guesses.length-1] === answer), 500);
+      }
+      return;
+    }
+    newGame();
+  } else {
+    newGame();
+  }
+}
+
+function newGame() {
+  answer = mode === 'daily' ? getDailyWord() : getRandomWord();
+  guesses = [];
+  currentGuess = '';
+  currentRow = 0;
+  gameOver = false;
+  letterStates = {};
+  document.getElementById('msg').textContent = '';
+  document.getElementById('resultOverlay').classList.remove('show');
+  renderBoard();
+  renderKeyboard();
+}
+
+function renderBoard() {
+  const el = document.getElementById('board');
+  el.innerHTML = '';
+  for (let r = 0; r < ROWS; r++) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.id = 'row-' + r;
+    for (let c = 0; c < COLS; c++) {
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      if (r < guesses.length) {
+        // Revealed row
+        tile.textContent = guesses[r][c];
+        const state = getTileState(guesses[r], c);
+        tile.classList.add(state);
+      } else if (r === currentRow) {
+        // Current row
+        if (c < currentGuess.length) {
+          tile.textContent = currentGuess[c];
+          tile.classList.add('filled');
+        }
+      }
+      row.appendChild(tile);
+    }
+    el.appendChild(row);
+  }
+}
+
+function getTileState(guess, index) {
+  if (guess[index] === answer[index]) return 'correct';
+  if (answer.includes(guess[index])) {
+    // Check for duplicates
+    let ansCount = 0, guessCount = 0;
+    for (let i = 0; i < COLS; i++) {
+      if (answer[i] === guess[index]) ansCount++;
+      if (i <= index && guess[i] === guess[index]) guessCount++;
+    }
+    // Count correct positions for this letter
+    let correctCount = 0;
+    for (let i = 0; i < COLS; i++) {
+      if (guess[i] === guess[index] && guess[i] === answer[i]) correctCount++;
+    }
+    if (guessCount <= ansCount - correctCount) return 'present';
+    // Check if any earlier non-correct position already used this
+    let priorPresent = 0;
+    for (let i = 0; i < index; i++) {
+      if (guess[i] === guess[index] && guess[i] !== answer[i] && answer.includes(guess[i])) priorPresent++;
+    }
+    if (priorPresent + correctCount < ansCount) return 'present';
+    return 'absent';
+  }
+  return 'absent';
+}
+
+function renderKeyboard() {
+  const rows = [
+    'QWERTYUIOP'.split(''),
+    'ASDFGHJKL'.split(''),
+    ['ENTER', ...'ZXCVBNM'.split(''), 'BACK']
+  ];
+  const el = document.getElementById('keyboard');
+  el.innerHTML = '';
+  for (const row of rows) {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'kb-row';
+    for (const key of row) {
+      const btn = document.createElement('button');
+      btn.className = 'key';
+      if (key === 'ENTER' || key === 'BACK') btn.classList.add('wide');
+      btn.textContent = key === 'BACK' ? '⌫' : key;
+      if (letterStates[key]) btn.classList.add(letterStates[key]);
+      btn.addEventListener('click', () => handleKey(key));
+      rowEl.appendChild(btn);
+    }
+    el.appendChild(rowEl);
+  }
+}
+
+function handleKey(key) {
+  if (gameOver) return;
+  if (key === 'BACK') {
+    currentGuess = currentGuess.slice(0, -1);
+    renderBoard();
+    return;
+  }
+  if (key === 'ENTER') {
+    submitGuess();
+    return;
+  }
+  if (currentGuess.length < COLS) {
+    currentGuess += key;
+    renderBoard();
+  }
+}
+
+function submitGuess() {
+  if (currentGuess.length !== COLS) {
+    showMsg('Not enough letters');
+    shakeRow();
+    return;
+  }
+  // Check if valid word
+  if (!WORDS.includes(currentGuess.toLowerCase())) {
+    showMsg('Not in word list');
+    shakeRow();
+    return;
+  }
+
+  // Update letter states for keyboard
+  for (let i = 0; i < COLS; i++) {
+    const letter = currentGuess[i];
+    const state = getTileState(currentGuess, i);
+    // Priority: correct > present > absent
+    if (state === 'correct') letterStates[letter] = 'correct';
+    else if (state === 'present' && letterStates[letter] !== 'correct') letterStates[letter] = 'present';
+    else if (!letterStates[letter]) letterStates[letter] = 'absent';
+  }
+
+  guesses.push(currentGuess);
+  const won = currentGuess === answer;
+  currentGuess = '';
+  currentRow++;
+
+  // Animate reveal
+  const rowEl = document.getElementById('row-' + (currentRow - 1));
+  if (rowEl) {
+    const tiles = rowEl.children;
+    for (let i = 0; i < tiles.length; i++) {
+      setTimeout(() => {
+        tiles[i].classList.add('reveal');
+        const state = getTileState(guesses[currentRow-1], i);
+        setTimeout(() => tiles[i].classList.add(state), 250);
+      }, i * 200);
+    }
+  }
+
+  setTimeout(() => {
+    renderBoard();
+    renderKeyboard();
+
+    if (won) {
+      gameOver = true;
+      saveDailyState();
+      setTimeout(() => showResult(true), 300);
+    } else if (currentRow >= ROWS) {
+      gameOver = true;
+      saveDailyState();
+      setTimeout(() => showResult(false), 300);
+    }
+  }, COLS * 200 + 300);
+
+  saveDailyState();
+}
+
+function showMsg(text) {
+  const el = document.getElementById('msg');
+  el.textContent = text;
+  setTimeout(() => { if (el.textContent === text) el.textContent = ''; }, 2000);
+}
+
+function shakeRow() {
+  const row = document.getElementById('row-' + currentRow);
+  if (row) { row.classList.add('shake'); setTimeout(() => row.classList.remove('shake'), 500); }
+}
+
+function saveDailyState() {
+  if (mode !== 'daily') return;
+  localStorage.setItem('wordle_daily_' + getDailyNumber(), JSON.stringify({
+    answer, guesses, gameOver, letterStates
+  }));
+}
+
+function showResult(won) {
+  const msgs = ['Genius!', 'Magnificent!', 'Impressive!', 'Splendid!', 'Great!', 'Phew!'];
+  document.getElementById('resultTitle').textContent = won ? '🎉 ' + (msgs[guesses.length-1] || 'Nice!') : '😔 Better luck next time';
+  document.getElementById('resultMsg').textContent = won
+    ? `You got it in ${guesses.length}/6!`
+    : `The word was ${answer}`;
+  document.getElementById('resultBtn').textContent = mode === 'daily' ? 'Play Unlimited' : 'Play Again';
+  document.getElementById('resultOverlay').classList.add('show');
+}
+
+function playAgain() {
+  document.getElementById('resultOverlay').classList.remove('show');
+  if (mode === 'daily') {
+    setMode('unlimited');
+  } else {
+    newGame();
+  }
+}
+
+// ===== SHARE =====
+function getEmojiGrid() {
+  let grid = '';
+  for (const guess of guesses) {
+    for (let i = 0; i < COLS; i++) {
+      const state = getTileState(guess, i);
+      grid += state === 'correct' ? '🟩' : state === 'present' ? '🟨' : '⬛';
+    }
+    grid += '\n';
+  }
+  return grid.trim();
+}
+
+function getShareText() {
+  const label = mode === 'daily' ? `Joy Grid Wordle #${getDailyNumber()}` : 'Joy Grid Wordle';
+  const result = gameOver && guesses[guesses.length-1] === answer ? `${guesses.length}/6` : 'X/6';
+  return `${label} ${result}\n\n${getEmojiGrid()}\n\nhttps://joy-grid.com/wordle.html`;
+}
+function getShareUrl() { return 'https://joy-grid.com/wordle.html'; }
+
+function shareTwitter() {
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}`, '_blank');
+}
+function shareFacebook() {
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}&quote=${encodeURIComponent(getShareText())}`, '_blank');
+}
+function shareWhatsApp() {
+  window.open(`https://wa.me/?text=${encodeURIComponent(getShareText())}`, '_blank');
+}
+function nativeShare() {
+  if (navigator.share) {
+    navigator.share({ title: 'Joy Grid Wordle', text: getShareText(), url: getShareUrl() }).catch(()=>{});
+  }
+}
+function copyShareText() {
+  navigator.clipboard.writeText(getShareText()).then(() => {
+    const toast = document.getElementById('shareToast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
+}
+if (!navigator.share) {
+  const ns = document.getElementById('nativeShareBtn');
+  if (ns) ns.style.display = 'none';
+}
+
+// ===== KEYBOARD INPUT =====
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key === 'Enter') handleKey('ENTER');
+  else if (e.key === 'Backspace') handleKey('BACK');
+  else if (/^[a-zA-Z]$/.test(e.key)) handleKey(e.key.toUpperCase());
+});
+
+// START
+setMode('daily');
+</script>
+</body>
+</html>

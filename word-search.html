@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Play Word Search Online Free - Joy Grid</title>
+<meta name="description" content="Play free Word Search puzzles online at Joy Grid. Find hidden words in the letter grid. New puzzles every time. No download required.">
+<meta name="keywords" content="word search online, free word search, word find, word puzzle, find words game">
+<link rel="canonical" href="https://joy-grid.com/word-search.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="google-site-verification" content="7DqxoOPpfo0PQeDNIBDzLEqJ08DLbEXdFALsN3DRTM8" />
+<meta property="og:title" content="Play Word Search Online Free - Joy Grid">
+<meta property="og:description" content="Find hidden words in the letter grid! Free puzzle game.">
+<meta property="og:url" content="https://joy-grid.com/word-search.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf8f5;--text:#2d2a26;--text-soft:#6b6560;--accent:#4ecdc4;--accent-dark:#3aa89f;--card-shadow:0 4px 20px rgba(0,0,0,0.08);--radius:16px}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,0,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 24px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.6rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-grid{display:grid;grid-template-columns:repeat(2,10px);gap:3px}
+.logo-grid span{width:10px;height:10px;border-radius:3px}
+.logo-grid span:nth-child(1){background:#ff6b35}
+.logo-grid span:nth-child(2){background:#4ecdc4}
+.logo-grid span:nth-child(3){background:#7c5cbf}
+.logo-grid span:nth-child(4){background:#ffd93d}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--text-soft);font-weight:600;font-size:0.95rem;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+
+.game-container{max-width:520px;margin:0 auto;padding:24px 16px 48px;position:relative;z-index:1}
+.game-header{text-align:center;margin-bottom:16px}
+.game-header h1{font-family:'Fredoka',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:4px}
+.game-header p{color:var(--text-soft);font-size:0.9rem}
+
+.stats-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.found-count{font-weight:700;font-size:0.95rem;color:var(--accent-dark)}
+.timer{font-weight:600;font-size:0.95rem;color:var(--text-soft)}
+
+.theme-label{text-align:center;font-family:'Fredoka',sans-serif;font-size:1.1rem;font-weight:600;margin-bottom:12px;color:var(--accent-dark)}
+
+.board-wrapper{background:#fff;border-radius:var(--radius);box-shadow:var(--card-shadow);padding:10px;margin-bottom:16px}
+.grid{display:grid;gap:2px;user-select:none;-webkit-user-select:none}
+.letter{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-size:clamp(0.9rem,3vw,1.3rem);font-weight:600;
+  border-radius:4px;cursor:pointer;text-transform:uppercase;
+  background:#f5f3f0;transition:background 0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.letter.selecting{background:#d4f5f2}
+.letter.found{background:var(--accent);color:#fff}
+.letter.wrong{animation:shake 0.3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+
+.word-list{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
+.word-tag{
+  padding:5px 14px;border-radius:20px;font-weight:600;font-size:0.85rem;
+  background:#f0f0f0;color:var(--text-soft);transition:all 0.2s;
+}
+.word-tag.found{background:var(--accent);color:#fff;text-decoration:line-through}
+
+.actions{display:flex;gap:8px;justify-content:center}
+.action-btn{padding:10px 24px;border:2px solid #e0e0e0;border-radius:12px;background:none;font-family:'Nunito',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.2s;color:var(--text-soft);-webkit-tap-highlight-color:transparent}
+.action-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;justify-content:center;align-items:center}
+.overlay.show{display:flex}
+.overlay-card{background:#fff;border-radius:var(--radius);padding:36px;text-align:center;max-width:360px;margin:20px;width:90%;animation:popIn 0.4s ease}
+.overlay-card h2{font-family:'Fredoka',sans-serif;font-size:1.8rem;margin-bottom:8px}
+.overlay-card p{color:var(--text-soft);margin-bottom:20px;line-height:1.5}
+.overlay-card .play-btn{padding:12px 32px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;cursor:pointer}
+.share-section{margin-top:20px;padding-top:20px;border-top:1px solid #eee}
+.share-label{font-size:0.85rem;color:var(--text-soft);margin-bottom:10px;font-weight:600}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-btn{width:44px;height:44px;border:none;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.15s;font-size:1.2rem;color:#fff;font-weight:700;font-family:'Nunito',sans-serif;-webkit-tap-highlight-color:transparent}
+.share-btn:hover{transform:scale(1.1)}
+.share-btn.twitter{background:#000}.share-btn.facebook{background:#1877F2;font-size:1.4rem}.share-btn.whatsapp{background:#25D366}.share-btn.native-share{background:var(--accent);font-size:1.3rem}.share-btn.copy-link{background:#6b6560;font-size:1.2rem}
+.share-toast{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 24px;border-radius:10px;font-size:0.9rem;font-weight:600;z-index:300}
+.share-toast.show{display:block}
+@keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+
+footer{text-align:center;padding:24px;color:var(--text-soft);font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.06);position:relative;z-index:1}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:640px){.nav-links{display:none}.game-container{padding:16px 10px 32px}}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="/" class="logo"><div class="logo-grid"><span></span><span></span><span></span><span></span></div>Joy Grid</a><div class="nav-links"><a href="/sudoku.html">Sudoku</a><a href="/wordle.html">Wordle</a><a href="/word-search.html" class="active">Word Search</a></div></div></nav>
+
+<div class="game-container">
+  <div class="game-header"><h1>Word Search</h1><p>Find all hidden words in the grid</p></div>
+  <div class="stats-bar">
+    <span class="found-count" id="foundCount">0/0 found</span>
+    <span class="timer" id="timer">00:00</span>
+  </div>
+  <div class="theme-label" id="themeLabel"></div>
+  <div class="board-wrapper"><div class="grid" id="grid"></div></div>
+  <div class="word-list" id="wordList"></div>
+  <div class="actions"><button class="action-btn" onclick="newGame()">🔄 New Puzzle</button></div>
+</div>
+
+<div class="overlay" id="winOverlay">
+  <div class="overlay-card">
+    <h2>🎉 All Words Found!</h2>
+    <p id="winMsg"></p>
+    <button class="play-btn" onclick="newGame();document.getElementById('winOverlay').classList.remove('show')">Play Again</button>
+    <div class="share-section">
+      <div class="share-label">Challenge your friends</div>
+      <div class="share-btns">
+        <button class="share-btn native-share" id="nativeShareBtn" onclick="nativeShare()">📤</button>
+        <button class="share-btn twitter" onclick="shareTwitter()">𝕏</button>
+        <button class="share-btn facebook" onclick="shareFacebook()">f</button>
+        <button class="share-btn whatsapp" onclick="shareWhatsApp()">WA</button>
+        <button class="share-btn copy-link" onclick="copyShareText()">📋</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="share-toast" id="shareToast">Copied!</div>
+
+<footer><p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p></footer>
+
+<script>
+const GRID_SIZE = 10;
+const THEMES = [
+  {name:'Animals',words:['TIGER','EAGLE','SHARK','WHALE','HORSE','SNAKE','PANDA','ZEBRA']},
+  {name:'Food',words:['BREAD','PASTA','PIZZA','SALAD','STEAK','CANDY','FRUIT','TOAST']},
+  {name:'Nature',words:['RIVER','OCEAN','STORM','CLOUD','EARTH','PLANT','FLAME','FROST']},
+  {name:'Space',words:['COMET','EARTH','LUNAR','ORBIT','PLUTO','SOLAR','STARS','VENUS']},
+  {name:'Sports',words:['RUGBY','CHESS','TRACK','RELAY','MATCH','MEDAL','SCORE','SERVE']},
+  {name:'Music',words:['PIANO','DRUMS','FLUTE','CHOIR','TEMPO','LYRIC','CHORD','VOCAL']},
+  {name:'Travel',words:['BEACH','HOTEL','TRAIN','PLANE','TOWER','CRUISE','FERRY','ROUTE']},
+  {name:'Colors',words:['BLACK','WHITE','GREEN','CORAL','IVORY','AMBER','PEACH','BEIGE']},
+];
+const DIRS = [[0,1],[1,0],[1,1],[-1,1],[0,-1],[-1,0],[-1,-1],[1,-1]];
+
+let grid = [];
+let words = [];
+let foundWords = new Set();
+let wordPositions = {}; // word -> [{r,c}]
+let selecting = false;
+let selectStart = null;
+let selectEnd = null;
+let selectedCells = [];
+let timerInterval, seconds = 0;
+let currentTheme = '';
+
+function newGame() {
+  const theme = THEMES[Math.floor(Math.random() * THEMES.length)];
+  currentTheme = theme.name;
+  // Pick 6 random words from theme
+  const shuffled = [...theme.words].sort(() => Math.random() - 0.5);
+  words = shuffled.slice(0, 6);
+  foundWords = new Set();
+  wordPositions = {};
+  seconds = 0;
+  document.getElementById('winOverlay').classList.remove('show');
+
+  // Generate grid
+  grid = Array.from({length: GRID_SIZE}, () => Array(GRID_SIZE).fill(''));
+  
+  // Place words
+  for (const word of words) {
+    placeWord(word);
+  }
+
+  // Fill empty cells with random letters
+  for (let r = 0; r < GRID_SIZE; r++)
+    for (let c = 0; c < GRID_SIZE; c++)
+      if (!grid[r][c]) grid[r][c] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+
+  document.getElementById('themeLabel').textContent = '🏷️ ' + currentTheme;
+  render();
+  startTimer();
+}
+
+function placeWord(word) {
+  const dirs = [...DIRS].sort(() => Math.random() - 0.5);
+  for (let attempt = 0; attempt < 100; attempt++) {
+    const dir = dirs[attempt % dirs.length];
+    const r = Math.floor(Math.random() * GRID_SIZE);
+    const c = Math.floor(Math.random() * GRID_SIZE);
+    if (canPlaceWord(word, r, c, dir)) {
+      const positions = [];
+      for (let i = 0; i < word.length; i++) {
+        const nr = r + dir[0] * i, nc = c + dir[1] * i;
+        grid[nr][nc] = word[i];
+        positions.push({r: nr, c: nc});
+      }
+      wordPositions[word] = positions;
+      return true;
+    }
+  }
+  return false;
+}
+
+function canPlaceWord(word, r, c, dir) {
+  for (let i = 0; i < word.length; i++) {
+    const nr = r + dir[0] * i, nc = c + dir[1] * i;
+    if (nr < 0 || nr >= GRID_SIZE || nc < 0 || nc >= GRID_SIZE) return false;
+    if (grid[nr][nc] && grid[nr][nc] !== word[i]) return false;
+  }
+  return true;
+}
+
+function render() {
+  renderGrid();
+  renderWordList();
+  document.getElementById('foundCount').textContent = `${foundWords.size}/${words.length} found`;
+}
+
+function renderGrid() {
+  const el = document.getElementById('grid');
+  el.style.gridTemplateColumns = `repeat(${GRID_SIZE}, 1fr)`;
+  el.innerHTML = '';
+  const foundCellKeys = new Set();
+  for (const w of foundWords) {
+    if (wordPositions[w]) wordPositions[w].forEach(p => foundCellKeys.add(`${p.r}-${p.c}`));
+  }
+  const selectKeys = new Set(selectedCells.map(p => `${p.r}-${p.c}`));
+
+  for (let r = 0; r < GRID_SIZE; r++) {
+    for (let c = 0; c < GRID_SIZE; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'letter';
+      cell.textContent = grid[r][c];
+      const key = `${r}-${c}`;
+      if (foundCellKeys.has(key)) cell.classList.add('found');
+      else if (selectKeys.has(key)) cell.classList.add('selecting');
+      cell.addEventListener('mousedown', (e) => { e.preventDefault(); startSelect(r, c); });
+      cell.addEventListener('mouseenter', () => { if (selecting) updateSelect(r, c); });
+      cell.addEventListener('touchstart', (e) => { e.preventDefault(); startSelect(r, c); }, {passive:false});
+      cell.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (el && el.classList.contains('letter')) {
+          const idx = [...document.querySelectorAll('.letter')].indexOf(el);
+          if (idx >= 0) updateSelect(Math.floor(idx/GRID_SIZE), idx%GRID_SIZE);
+        }
+      }, {passive:false});
+      el.appendChild(cell);
+    }
+  }
+  document.addEventListener('mouseup', endSelect);
+  document.addEventListener('touchend', endSelect);
+}
+
+function renderWordList() {
+  const el = document.getElementById('wordList');
+  el.innerHTML = '';
+  for (const w of words) {
+    const tag = document.createElement('span');
+    tag.className = 'word-tag';
+    if (foundWords.has(w)) tag.classList.add('found');
+    tag.textContent = w;
+    el.appendChild(tag);
+  }
+}
+
+function startSelect(r, c) {
+  selecting = true;
+  selectStart = {r, c};
+  selectEnd = {r, c};
+  selectedCells = [{r, c}];
+  render();
+}
+
+function updateSelect(r, c) {
+  if (!selecting) return;
+  selectEnd = {r, c};
+  // Only allow straight lines (8 directions)
+  const dr = Math.sign(r - selectStart.r);
+  const dc = Math.sign(c - selectStart.c);
+  if (dr === 0 && dc === 0) { selectedCells = [{r, c}]; render(); return; }
+  // Check if it's a valid line
+  const rowDiff = Math.abs(r - selectStart.r);
+  const colDiff = Math.abs(c - selectStart.c);
+  if (rowDiff !== 0 && colDiff !== 0 && rowDiff !== colDiff) return; // not diagonal
+
+  selectedCells = [];
+  const len = Math.max(rowDiff, colDiff);
+  for (let i = 0; i <= len; i++) {
+    selectedCells.push({r: selectStart.r + dr * i, c: selectStart.c + dc * i});
+  }
+  render();
+}
+
+function endSelect() {
+  if (!selecting) return;
+  selecting = false;
+  // Check if selected word matches
+  const selectedWord = selectedCells.map(p => grid[p.r][p.c]).join('');
+  const reversedWord = [...selectedWord].reverse().join('');
+  let matched = false;
+  for (const w of words) {
+    if (!foundWords.has(w) && (selectedWord === w || reversedWord === w)) {
+      foundWords.add(w);
+      matched = true;
+      break;
+    }
+  }
+  selectedCells = [];
+  render();
+
+  if (foundWords.size === words.length) {
+    clearInterval(timerInterval);
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    document.getElementById('winMsg').textContent = `Theme: ${currentTheme} · Time: ${mins}m ${secs}s`;
+    setTimeout(() => document.getElementById('winOverlay').classList.add('show'), 500);
+  }
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  seconds = 0;
+  timerInterval = setInterval(() => {
+    seconds++;
+    document.getElementById('timer').textContent =
+      `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
+  }, 1000);
+}
+
+// ===== SHARE =====
+function getShareText() {
+  const mins = Math.floor(seconds/60);
+  const secs = seconds%60;
+  return `🔍 I found all ${words.length} words in the "${currentTheme}" Word Search in ${mins}m ${secs}s! Can you find them faster?\n\nhttps://joy-grid.com/word-search.html`;
+}
+function getShareUrl() { return 'https://joy-grid.com/word-search.html'; }
+function shareTwitter() { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}`, '_blank'); }
+function shareFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}&quote=${encodeURIComponent(getShareText())}`, '_blank'); }
+function shareWhatsApp() { window.open(`https://wa.me/?text=${encodeURIComponent(getShareText())}`, '_blank'); }
+function nativeShare() { if (navigator.share) navigator.share({title:'Joy Grid Word Search',text:getShareText(),url:getShareUrl()}).catch(()=>{}); }
+function copyShareText() { navigator.clipboard.writeText(getShareText()).then(()=>{const t=document.getElementById('shareToast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}); }
+if (!navigator.share) { const ns=document.getElementById('nativeShareBtn'); if(ns) ns.style.display='none'; }
+
+newGame();
+</script>
+</body>
+</html>
