@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found - Joy Grid</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf8f5;--text:#2d2a26;--text-soft:#6b6560;--accent:#ff6b35}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,0,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 24px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:64px}
+.logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.6rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-grid{display:grid;grid-template-columns:repeat(2,10px);gap:3px}
+.logo-grid span{width:10px;height:10px;border-radius:3px}
+.logo-grid span:nth-child(1){background:#ff6b35}
+.logo-grid span:nth-child(2){background:#4ecdc4}
+.logo-grid span:nth-child(3){background:#7c5cbf}
+.logo-grid span:nth-child(4){background:#ffd93d}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;position:relative;z-index:1;text-align:center}
+.big-404{font-family:'Fredoka',sans-serif;font-size:8rem;font-weight:700;line-height:1;background:linear-gradient(135deg,#ff6b35,#ff6b8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.center h2{font-family:'Fredoka',sans-serif;font-size:1.5rem;margin:12px 0 8px}
+.center p{color:var(--text-soft);margin-bottom:28px;font-size:1rem}
+.links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.links a{
+  padding:10px 24px;border-radius:12px;text-decoration:none;
+  font-family:'Nunito',sans-serif;font-weight:600;font-size:0.95rem;
+  transition:transform 0.2s;
+}
+.links a:first-child{background:var(--accent);color:#fff}
+.links a:not(:first-child){border:2px solid #ddd;color:var(--text-soft)}
+.links a:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-grid"><span></span><span></span><span></span><span></span></div>
+      Joy Grid
+    </a>
+  </div>
+</nav>
+<div class="center">
+  <div class="big-404">404</div>
+  <h2>This square is empty!</h2>
+  <p>The page you're looking for doesn't exist. But there are plenty of games to play.</p>
+  <div class="links">
+    <a href="/">Back to Home</a>
+    <a href="/sudoku.html">Play Sudoku</a>
+    <a href="/2048.html">Play 2048</a>
+  </div>
+</div>
+</body>
+</html>
