@@ -187,6 +187,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
   animation:fadeInUp 0.3s ease;
 }
 .share-toast.show{display:block}
+
+/* Close button */
+.close-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;border-radius:50%;background:rgba(0,0,0,0.08);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background 0.15s;color:var(--text-soft);-webkit-tap-highlight-color:transparent}
+.close-btn:hover{background:rgba(0,0,0,0.15)}
+.win-card,.overlay-card{position:relative}
 @keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
 @keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
@@ -254,6 +259,7 @@ footer a{color:var(--accent);text-decoration:none}
 
 <div class="win-overlay" id="winOverlay">
   <div class="win-card">
+    <button class="close-btn" onclick="document.getElementById('winOverlay').classList.remove('show')">✕</button>
     <h2>🎉 Puzzle Complete!</h2>
     <p id="winMsg">Great job!</p>
     <button class="play-again" onclick="newGame()">Play Again</button>

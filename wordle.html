@@ -117,8 +117,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
 .overlay-card{
   background:#fff;border-radius:var(--radius);padding:36px;
   text-align:center;max-width:360px;margin:20px;width:90%;
-  animation:popIn 0.4s ease;
+  animation:popIn 0.4s ease;position:relative;
 }
+.close-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;border-radius:50%;background:rgba(0,0,0,0.08);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#6b6560;-webkit-tap-highlight-color:transparent}
+.close-btn:hover{background:rgba(0,0,0,0.15)}
 .overlay-card h2{font-family:'Fredoka',sans-serif;font-size:1.8rem;margin-bottom:8px}
 .overlay-card p{color:var(--text-soft);margin-bottom:20px;line-height:1.5}
 .overlay-card .play-btn{
@@ -202,6 +204,7 @@ footer a{color:var(--accent);text-decoration:none}
 
 <div class="overlay" id="resultOverlay">
   <div class="overlay-card">
+    <button class="close-btn" onclick="document.getElementById('resultOverlay').classList.remove('show')">✕</button>
     <h2 id="resultTitle"></h2>
     <p id="resultMsg"></p>
     <button class="play-btn" id="resultBtn" onclick="playAgain()">Play Again</button>

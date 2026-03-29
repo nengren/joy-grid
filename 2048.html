@@ -210,7 +210,8 @@ footer a{color:var(--accent);text-decoration:none}
 
 <!-- Full screen overlays -->
 <div class="win-overlay" id="gameOverOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;justify-content:center;align-items:center">
-  <div style="background:#fff;border-radius:16px;padding:40px;text-align:center;max-width:360px;margin:20px;animation:popIn 0.4s ease">
+  <div style="background:#fff;border-radius:16px;padding:40px;text-align:center;max-width:360px;margin:20px;animation:popIn 0.4s ease;position:relative">
+    <button onclick="document.getElementById('gameOverOverlay').style.display='none'" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;border-radius:50%;background:rgba(0,0,0,0.08);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#6b6560">✕</button>
     <h2 style="font-family:'Fredoka',sans-serif;font-size:2rem;margin-bottom:8px">Game Over!</h2>
     <p id="gameOverMsg" style="color:#6b6560;margin-bottom:20px;line-height:1.5"></p>
     <button class="try-again" onclick="newGame();document.getElementById('gameOverOverlay').style.display='none'" style="padding:12px 32px;border:none;border-radius:12px;background:#ff6b35;color:#fff;font-family:'Fredoka',sans-serif;font-size:1.1rem;font-weight:600;cursor:pointer">Try Again</button>
@@ -222,7 +223,8 @@ footer a{color:var(--accent);text-decoration:none}
 </div>
 
 <div class="win-overlay" id="winOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;justify-content:center;align-items:center">
-  <div style="background:#fff;border-radius:16px;padding:40px;text-align:center;max-width:360px;margin:20px;animation:popIn 0.4s ease">
+  <div style="background:#fff;border-radius:16px;padding:40px;text-align:center;max-width:360px;margin:20px;animation:popIn 0.4s ease;position:relative">
+    <button onclick="document.getElementById('winOverlay').style.display='none'" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;border-radius:50%;background:rgba(0,0,0,0.08);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#6b6560">✕</button>
     <h2 style="font-family:'Fredoka',sans-serif;font-size:2rem;margin-bottom:8px;color:#ff6b35">🎉 You reached 2048!</h2>
     <p id="winMsg2048" style="color:#6b6560;margin-bottom:20px;line-height:1.5"></p>
     <button class="try-again" onclick="keepPlaying()" style="padding:12px 32px;border:none;border-radius:12px;background:#ff6b35;color:#fff;font-family:'Fredoka',sans-serif;font-size:1.1rem;font-weight:600;cursor:pointer">Keep Playing</button>
