@@ -13,7 +13,10 @@
 <meta property="og:description" content="Classic falling blocks puzzle. Rotate, drop, clear lines! Free to play.">
 <meta property="og:url" content="https://joy-grid.com/block-drop.html">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Joy Grid">
+<meta property="og:image" content="https://joy-grid.com/og-block-drop.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://joy-grid.com/og-block-drop.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -467,7 +470,7 @@ function getShareText() {
 }
 function getShareUrl() { return 'https://joy-grid.com/block-drop.html'; }
 function shareTwitter() { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}`, '_blank'); }
-function shareFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}&quote=${encodeURIComponent(getShareText())}`, '_blank'); }
+function shareFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`, '_blank');
 function shareWhatsApp() { window.open(`https://wa.me/?text=${encodeURIComponent(getShareText())}`, '_blank'); }
 function nativeShare() { if (navigator.share) navigator.share({title:'Joy Grid Block Drop',text:getShareText(),url:getShareUrl()}).catch(()=>{}); }
 function copyShareText() { navigator.clipboard.writeText(getShareText()).then(()=>{const t=document.getElementById('shareToast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}); }

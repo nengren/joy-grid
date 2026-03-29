@@ -11,13 +11,14 @@
 <meta name="google-site-verification" content="7DqxoOPpfo0PQeDNIBDzLEqJ08DLbEXdFALsN3DRTM8" />
 <meta property="og:title" content="Play Sudoku Online Free - Joy Grid">
 <meta property="og:description" content="Play free Sudoku puzzles with Easy, Medium, Hard, and Expert levels. No download needed.">
-<meta property="og:image" content="https://joy-grid.com/og-sudoku.svg">
+<meta property="og:image" content="https://joy-grid.com/og-sudoku.png">
 <meta property="og:url" content="https://joy-grid.com/sudoku.html">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Joy Grid">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Play Sudoku Online Free - Joy Grid">
 <meta name="twitter:description" content="Play free Sudoku puzzles with Easy, Medium, Hard, and Expert levels.">
-<meta name="twitter:image" content="https://joy-grid.com/og-sudoku.svg">
+<meta name="twitter:image" content="https://joy-grid.com/og-sudoku.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -604,9 +605,7 @@ function shareTwitter() {
   window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
 }
 function shareFacebook() {
-  const url = encodeURIComponent(getShareUrl());
-  const quote = encodeURIComponent(getShareText());
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${quote}`, '_blank');
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`, '_blank');
 }
 function shareWhatsApp() {
   const text = encodeURIComponent(getShareText());
