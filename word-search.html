@@ -345,7 +345,7 @@ function getShareText() {
 }
 function getShareUrl() { return 'https://joy-grid.com/word-search.html'; }
 function shareTwitter() { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}`, '_blank'); }
-function shareFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`, '_blank');
+function shareFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`, '_blank'); }
 function shareWhatsApp() { window.open(`https://wa.me/?text=${encodeURIComponent(getShareText())}`, '_blank'); }
 function nativeShare() { if (navigator.share) navigator.share({title:'Joy Grid Word Search',text:getShareText(),url:getShareUrl()}).catch(()=>{}); }
 function copyShareText() { navigator.clipboard.writeText(getShareText()).then(()=>{const t=document.getElementById('shareToast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}); }
