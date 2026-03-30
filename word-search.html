@@ -103,6 +103,13 @@ footer a{color:var(--accent);text-decoration:none}
 
 <div class="game-container">
   <div class="game-header"><h1>Word Search</h1><p>Find all hidden words in the grid</p></div>
+  <div style="display:flex;gap:4px;justify-content:center;margin-bottom:12px">
+    <button class="action-btn" id="wsDailyBtn" onclick="startDaily()" style="padding:6px 16px;border-radius:20px;font-size:0.82rem;border-color:var(--accent);color:var(--accent)">📅 Daily</button>
+    <button class="action-btn" id="wsRandomBtn" onclick="startRandom()" style="padding:6px 16px;border-radius:20px;font-size:0.82rem">🔀 Random</button>
+  </div>
+  <div id="dailyInfo" style="text-align:center;margin-bottom:8px;display:none">
+    <span style="font-family:'Fredoka',sans-serif;font-size:0.9rem;color:var(--accent-dark);font-weight:600" id="dailyLabel"></span>
+  </div>
   <div class="stats-bar">
     <span class="found-count" id="foundCount">0/0 found</span>
     <span class="timer" id="timer">00:00</span>
@@ -152,37 +159,91 @@ const DIRS = [[0,1],[1,0],[1,1],[-1,1],[0,-1],[-1,0],[-1,-1],[1,-1]];
 let grid = [];
 let words = [];
 let foundWords = new Set();
-let wordPositions = {}; // word -> [{r,c}]
+let wordPositions = {};
 let selecting = false;
 let selectStart = null;
 let selectEnd = null;
 let selectedCells = [];
 let timerInterval, seconds = 0;
 let currentTheme = '';
+let isDailyMode = false;
+
+// ===== SEEDED RANDOM =====
+let rng = Math.random;
+
+function seededRandom(seed) {
+  let s = seed;
+  return function() {
+    s = (s * 16807 + 0) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+}
+
+function getDailyNumber() {
+  const start = new Date('2026-01-01').getTime();
+  const now = new Date().setHours(0,0,0,0);
+  return Math.floor((now - start) / 86400000) + 1;
+}
+
+function getDailySeed() {
+  const d = new Date();
+  return d.getFullYear() * 10000 + (d.getMonth()+1) * 100 + d.getDate() + 7777;
+}
+
+function startDaily() {
+  isDailyMode = true;
+  document.getElementById('wsDailyBtn').style.background = 'var(--accent)';
+  document.getElementById('wsDailyBtn').style.color = '#fff';
+  document.getElementById('wsRandomBtn').style.background = 'none';
+  document.getElementById('wsRandomBtn').style.color = 'var(--text-soft)';
+  newGame();
+}
+
+function startRandom() {
+  isDailyMode = false;
+  document.getElementById('wsRandomBtn').style.background = 'var(--accent)';
+  document.getElementById('wsRandomBtn').style.color = '#fff';
+  document.getElementById('wsDailyBtn').style.background = 'none';
+  document.getElementById('wsDailyBtn').style.color = 'var(--accent)';
+  document.getElementById('dailyInfo').style.display = 'none';
+  newGame();
+}
 
 function newGame() {
-  const theme = THEMES[Math.floor(Math.random() * THEMES.length)];
+  if (isDailyMode) {
+    rng = seededRandom(getDailySeed());
+  } else {
+    rng = Math.random;
+  }
+
+  const themeIdx = Math.floor(rng() * THEMES.length);
+  const theme = THEMES[themeIdx];
   currentTheme = theme.name;
-  // Pick 6 random words from theme
-  const shuffled = [...theme.words].sort(() => Math.random() - 0.5);
+  const shuffled = [...theme.words].sort(() => rng() - 0.5);
   words = shuffled.slice(0, 6);
   foundWords = new Set();
   wordPositions = {};
   seconds = 0;
   document.getElementById('winOverlay').classList.remove('show');
 
-  // Generate grid
+  if (isDailyMode) {
+    document.getElementById('dailyInfo').style.display = 'block';
+    const d = new Date();
+    const dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    document.getElementById('dailyLabel').textContent = `📅 Daily #${getDailyNumber()} · ${dateStr} · ${currentTheme}`;
+  }
+
   grid = Array.from({length: GRID_SIZE}, () => Array(GRID_SIZE).fill(''));
   
-  // Place words
   for (const word of words) {
     placeWord(word);
   }
 
-  // Fill empty cells with random letters
   for (let r = 0; r < GRID_SIZE; r++)
     for (let c = 0; c < GRID_SIZE; c++)
-      if (!grid[r][c]) grid[r][c] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+      if (!grid[r][c]) grid[r][c] = String.fromCharCode(65 + Math.floor(rng() * 26));
+
+  rng = Math.random; // reset after generation
 
   document.getElementById('themeLabel').textContent = '🏷️ ' + currentTheme;
   render();
@@ -190,11 +251,11 @@ function newGame() {
 }
 
 function placeWord(word) {
-  const dirs = [...DIRS].sort(() => Math.random() - 0.5);
+  const dirs = [...DIRS].sort(() => rng() - 0.5);
   for (let attempt = 0; attempt < 100; attempt++) {
     const dir = dirs[attempt % dirs.length];
-    const r = Math.floor(Math.random() * GRID_SIZE);
-    const c = Math.floor(Math.random() * GRID_SIZE);
+    const r = Math.floor(rng() * GRID_SIZE);
+    const c = Math.floor(rng() * GRID_SIZE);
     if (canPlaceWord(word, r, c, dir)) {
       const positions = [];
       for (let i = 0; i < word.length; i++) {
@@ -341,6 +402,9 @@ function startTimer() {
 function getShareText() {
   const mins = Math.floor(seconds/60);
   const secs = seconds%60;
+  if (isDailyMode) {
+    return `🔍 Joy Grid Word Search Daily #${getDailyNumber()} — Found all ${words.length} "${currentTheme}" words in ${mins}m ${secs}s! Can you beat me?\n\nhttps://joy-grid.com/word-search.html`;
+  }
   return `🔍 I found all ${words.length} words in the "${currentTheme}" Word Search in ${mins}m ${secs}s! Can you find them faster?\n\nhttps://joy-grid.com/word-search.html`;
 }
 function getShareUrl() { return 'https://joy-grid.com/word-search.html'; }
@@ -351,7 +415,7 @@ function nativeShare() { if (navigator.share) navigator.share({title:'Joy Grid W
 function copyShareText() { navigator.clipboard.writeText(getShareText()).then(()=>{const t=document.getElementById('shareToast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}); }
 if (!navigator.share) { const ns=document.getElementById('nativeShareBtn'); if(ns) ns.style.display='none'; }
 
-newGame();
+startDaily();
 </script>
 </body>
 </html>
