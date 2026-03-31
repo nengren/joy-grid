@@ -151,6 +151,20 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
 .share-btn.whatsapp{background:#25D366}
 .share-btn.native-share{background:var(--accent);font-size:1.3rem}
 .share-btn.copy-link{background:#6b6560;font-size:1.2rem}
+
+/* Mobile/Desktop share layout */
+.share-desktop{display:flex;gap:8px;justify-content:center}
+.share-mobile{display:none;flex-direction:column;align-items:center;gap:8px}
+.share-mobile .share-main-btn{
+  padding:12px 32px;border:none;border-radius:12px;
+  background:var(--accent);color:#fff;font-family:'Nunito',sans-serif;
+  font-size:1rem;font-weight:700;cursor:pointer;transition:transform 0.15s;
+  display:flex;align-items:center;gap:8px;
+  -webkit-tap-highlight-color:transparent;
+}
+.share-mobile .share-main-btn:active{transform:scale(0.95)}
+.share-mobile .copy-row{display:flex;gap:8px}
+@media(max-width:768px){.share-desktop{display:none}.share-mobile{display:flex}}
 .share-toast{
   display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
   background:#333;color:#fff;padding:10px 24px;border-radius:10px;
@@ -444,19 +458,20 @@ document.addEventListener('touchend', e => {
 
 // ===== SHARE FUNCTIONS =====
 const shareBtnHTML = `
-  <button class="share-btn native-share" onclick="nativeShare()" title="Share">📤</button>
-  <button class="share-btn twitter" onclick="shareTwitter()" title="Share on X">𝕏</button>
-  <button class="share-btn facebook" onclick="shareFacebook()" title="Share on Facebook">f</button>
-  <button class="share-btn whatsapp" onclick="shareWhatsApp()" title="Share on WhatsApp">WA</button>
-  <button class="share-btn copy-link" onclick="copyShareText()" title="Copy result">📋</button>`;
+  <div class="share-mobile">
+    <button class="share-main-btn" onclick="nativeShare()">📤 Share Result</button>
+    <div class="copy-row"><button class="share-btn copy-link" onclick="copyShareText()">📋 Copy</button></div>
+  </div>
+  <div class="share-desktop">
+    <button class="share-btn twitter" onclick="shareTwitter()" title="Share on X">𝕏</button>
+    <button class="share-btn facebook" onclick="shareFacebook()" title="Facebook">f</button>
+    <button class="share-btn whatsapp" onclick="shareWhatsApp()" title="WhatsApp">WA</button>
+    <button class="share-btn copy-link" onclick="copyShareText()" title="Copy">📋</button>
+  </div>`;
 
 function populateShareBtns(containerId) {
   const el = document.getElementById(containerId);
   el.innerHTML = shareBtnHTML;
-  if (!navigator.share) {
-    const ns = el.querySelector('.native-share');
-    if (ns) ns.style.display = 'none';
-  }
 }
 
 function getShareText() {
@@ -476,7 +491,9 @@ function shareWhatsApp() {
 }
 function nativeShare() {
   if (navigator.share) {
-    navigator.share({ title: 'Joy Grid 2048', text: getShareText(), url: getShareUrl() }).catch(()=>{});
+    navigator.share({ title: 'Joy Grid', text: getShareText(), url: getShareUrl() }).catch(()=>{});
+  } else {
+    copyShareText();
   }
 }
 function copyShareText() {
