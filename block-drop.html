@@ -100,7 +100,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
 .share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .share-btn{width:44px;height:44px;border:none;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.15s;font-size:1.2rem;color:#fff;font-weight:700;font-family:'Nunito',sans-serif;-webkit-tap-highlight-color:transparent}
 .share-btn:hover{transform:scale(1.1)}
-.share-btn.twitter{background:#000}.share-btn.facebook{background:#1877F2;font-size:1.4rem}.share-btn.whatsapp{background:#25D366}.share-btn.native-share{background:var(--accent);font-size:1.3rem}.share-btn.copy-link{background:#6b6560;font-size:1.2rem}
 
 /* Mobile/Desktop share layout */
 .share-desktop{display:flex;gap:8px;justify-content:center}
@@ -181,7 +180,6 @@ footer a{color:var(--accent);text-decoration:none}
         </div>
         <div class="share-desktop">
           <button class="share-btn twitter" onclick="shareTwitter()" title="Share on X">𝕏</button>
-          <button class="share-btn facebook" onclick="shareFacebook()" title="Facebook">f</button>
           <button class="share-btn whatsapp" onclick="shareWhatsApp()" title="WhatsApp">WA</button>
           <button class="share-btn copy-link" onclick="copyShareText()" title="Copy">📋</button>
         </div>
@@ -492,7 +490,6 @@ function getShareText() {
 }
 function getShareUrl() { return 'https://joy-grid.com/block-drop.html'; }
 function shareTwitter() { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}`, '_blank'); }
-function shareFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`, '_blank'); }
 function shareWhatsApp() { window.open(`https://wa.me/?text=${encodeURIComponent(getShareText())}`, '_blank'); }
 function nativeShare() { if (navigator.share) { navigator.share({title:'Joy Grid',text:getShareText(),url:getShareUrl()}).catch(function(){}); } else { copyShareText(); } }
 function copyShareText() { navigator.clipboard.writeText(getShareText()).then(()=>{const t=document.getElementById('shareToast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}); }
