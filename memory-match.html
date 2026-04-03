@@ -87,6 +87,23 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
 footer{text-align:center;padding:24px;color:var(--text-soft);font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.06);position:relative;z-index:1}
 footer a{color:var(--accent);text-decoration:none}
 @media(max-width:640px){.nav-links{display:none}}
+
+/* SEO Content & Recommendations */
+.content-section{max-width:640px;margin:0 auto;padding:40px 24px 0;position:relative;z-index:1}
+.content-section h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text,#2d2a26)}
+.content-section p{font-size:0.92rem;line-height:1.75;color:#555;margin-bottom:14px}
+.recommend{max-width:640px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:1}
+.recommend h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;color:var(--text-soft,#6b6560);text-align:center}
+.recommend-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rec-card{
+  display:flex;align-items:center;gap:10px;padding:10px 16px;
+  background:#fff;border-radius:12px;text-decoration:none;color:inherit;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.15s,box-shadow 0.15s;
+  min-width:140px;
+}
+.rec-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rec-icon{font-size:1.4rem}
+.rec-name{font-family:'Fredoka',sans-serif;font-size:0.9rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -116,6 +133,23 @@ footer a{color:var(--accent);text-decoration:none}
   </div></div>
 </div></div>
 <div class="share-toast" id="shareToast">Copied!</div>
+
+
+<section class="content-section">
+  <h2>How to Play Memory Match</h2>
+  <p>Memory Match is a card-flipping game that tests your recall. Cards are laid face-down in a grid. Flip two cards per turn — if they match, they stay face-up and you score a pair. If they don't match, they flip back over. The goal is to find all pairs in as few moves as possible.</p>
+<p>Pay close attention to every card you flip, even failed matches. The information from wrong guesses is what helps you later. A good strategy is to flip an unknown card first, then try to recall if you've seen its match before. Work systematically through the grid rather than clicking randomly.</p>
+<p>Choose from three difficulty levels: Easy (6 pairs in a 4×3 grid), Medium (8 pairs in a 4×4 grid), or Hard (10 pairs in a 5×4 grid). The cards use colorful emoji — animals, food, and more. It's a great brain exercise for all ages, and kids especially love it.</p>
+</section>
+
+<section class="recommend">
+  <h3>You might also like</h3>
+  <div class="recommend-grid">
+      <a href="/word-search.html" class="rec-card"><span class="rec-icon">🔍</span><span class="rec-name">Word Search</span></a>
+      <a href="/sliding-puzzle.html" class="rec-card"><span class="rec-icon">🧩</span><span class="rec-name">Sliding Puzzle</span></a>
+      <a href="/color-flood.html" class="rec-card"><span class="rec-icon">🎨</span><span class="rec-name">Color Flood</span></a>
+  </div>
+</section>
 
 <footer><p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p></footer>
 

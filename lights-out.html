@@ -80,6 +80,23 @@ nav{position:sticky;top:0;z-index:100;background:rgba(15,14,23,0.95);backdrop-fi
 footer{text-align:center;padding:24px;color:var(--text-soft);font-size:0.85rem}
 footer a{color:var(--accent);text-decoration:none}
 @media(max-width:640px){.nav-links{display:none}}
+
+/* SEO Content & Recommendations */
+.content-section{max-width:640px;margin:0 auto;padding:40px 24px 0;position:relative;z-index:1}
+.content-section h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text,#fffffe)}
+.content-section p{font-size:0.92rem;line-height:1.75;color:var(--text-soft,#a7a9be);margin-bottom:14px}
+.recommend{max-width:640px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:1}
+.recommend h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;color:var(--text-soft,#a7a9be);text-align:center}
+.recommend-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rec-card{
+  display:flex;align-items:center;gap:10px;padding:10px 16px;
+  background:var(--surface,#1a1930);border:1px solid rgba(255,255,255,0.06);border-radius:12px;text-decoration:none;color:var(--text,#fffffe);
+  box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:transform 0.15s;
+  min-width:140px;
+}
+.rec-card:hover{transform:translateY(-2px)}
+.rec-icon{font-size:1.4rem}
+.rec-name{font-family:'Fredoka',sans-serif;font-size:0.9rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -107,6 +124,23 @@ footer a{color:var(--accent);text-decoration:none}
   </div></div>
 </div></div>
 <div class="share-toast" id="shareToast">Copied!</div>
+
+
+<section class="content-section">
+  <h2>How to Play Lights Out</h2>
+  <p>Lights Out is a logic puzzle on a grid of lights that can be either on or off. Clicking any light toggles it and all four of its direct neighbors (up, down, left, right). Your goal is to turn all the lights off. It sounds simple, but the cascading toggle effect makes every move affect multiple cells.</p>
+<p>The key insight is that order doesn't matter — clicking the same set of lights in any sequence produces the same result. Also, clicking a light twice cancels itself out. This means you only need to decide which lights to click once. Try solving the top rows first, then use the bottom row to fix any remaining lit cells in the row above.</p>
+<p>Every puzzle on Joy Grid is guaranteed to have a solution. Choose from 5×5 (classic), 6×6, or 7×7 grids. The larger grids are significantly harder. Lights Out develops logical thinking and spatial reasoning — and the glowing visual effect when you finally clear the board is deeply satisfying.</p>
+</section>
+
+<section class="recommend">
+  <h3>You might also like</h3>
+  <div class="recommend-grid">
+      <a href="/minesweeper.html" class="rec-card"><span class="rec-icon">💣</span><span class="rec-name">Minesweeper</span></a>
+      <a href="/color-flood.html" class="rec-card"><span class="rec-icon">🎨</span><span class="rec-name">Color Flood</span></a>
+      <a href="/sudoku.html" class="rec-card"><span class="rec-icon">🔢</span><span class="rec-name">Sudoku</span></a>
+  </div>
+</section>
 
 <footer><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy</a></footer>
 

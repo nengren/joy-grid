@@ -109,6 +109,23 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
 footer{text-align:center;padding:24px;color:var(--text-soft);font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.06);position:relative;z-index:1}
 footer a{color:var(--accent);text-decoration:none}
 @media(max-width:640px){.nav-links{display:none}.game-container{padding:16px 10px 32px}}
+
+/* SEO Content & Recommendations */
+.content-section{max-width:640px;margin:0 auto;padding:40px 24px 0;position:relative;z-index:1}
+.content-section h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text,#2d2a26)}
+.content-section p{font-size:0.92rem;line-height:1.75;color:#555;margin-bottom:14px}
+.recommend{max-width:640px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:1}
+.recommend h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;color:var(--text-soft,#6b6560);text-align:center}
+.recommend-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rec-card{
+  display:flex;align-items:center;gap:10px;padding:10px 16px;
+  background:#fff;border-radius:12px;text-decoration:none;color:inherit;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.15s,box-shadow 0.15s;
+  min-width:140px;
+}
+.rec-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rec-icon{font-size:1.4rem}
+.rec-name{font-family:'Fredoka',sans-serif;font-size:0.9rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -156,6 +173,23 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </div>
 <div class="share-toast" id="shareToast">Copied!</div>
+
+
+<section class="content-section">
+  <h2>How to Play Word Search</h2>
+  <p>Word Search is a classic word puzzle where you find hidden words in a grid of letters. Words can be placed horizontally, vertically, or diagonally — and even backwards. Click and drag across the letters to select a word. When you find a correct word, it lights up and gets crossed off the list.</p>
+<p>Start by scanning the word list and looking for distinctive letters or letter combinations. Words with uncommon letters like X, Z, or Q are often easiest to spot first. Once you find the first letter of a word, check all eight directions from that position. Longer words are usually easier to find than short ones because they're more distinctive.</p>
+<p>Each puzzle is themed — animals, food, nature, sports, and more — with six words to find. The Daily mode gives everyone the same puzzle, so you can race against friends. The timer tracks your speed, making it satisfying to improve your personal best across different themes.</p>
+</section>
+
+<section class="recommend">
+  <h3>You might also like</h3>
+  <div class="recommend-grid">
+      <a href="/wordle.html" class="rec-card"><span class="rec-icon">📝</span><span class="rec-name">Wordle</span></a>
+      <a href="/memory-match.html" class="rec-card"><span class="rec-icon">🃏</span><span class="rec-name">Memory Match</span></a>
+      <a href="/sudoku.html" class="rec-card"><span class="rec-icon">🔢</span><span class="rec-name">Sudoku</span></a>
+  </div>
+</section>
 
 <footer><p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p></footer>
 

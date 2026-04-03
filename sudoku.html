@@ -220,6 +220,23 @@ footer a{color:var(--accent);text-decoration:none}
   .numpad{grid-template-columns:repeat(5,1fr);gap:4px}
   .num-btn{padding:10px 0;font-size:1.15rem}
 }
+
+/* SEO Content & Recommendations */
+.content-section{max-width:640px;margin:0 auto;padding:40px 24px 0;position:relative;z-index:1}
+.content-section h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text,#2d2a26)}
+.content-section p{font-size:0.92rem;line-height:1.75;color:#555;margin-bottom:14px}
+.recommend{max-width:640px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:1}
+.recommend h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;color:var(--text-soft,#6b6560);text-align:center}
+.recommend-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rec-card{
+  display:flex;align-items:center;gap:10px;padding:10px 16px;
+  background:#fff;border-radius:12px;text-decoration:none;color:inherit;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.15s,box-shadow 0.15s;
+  min-width:140px;
+}
+.rec-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rec-icon{font-size:1.4rem}
+.rec-name{font-family:'Fredoka',sans-serif;font-size:0.9rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -294,6 +311,23 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </div>
 <div class="share-toast" id="shareToast">Copied!</div>
+
+
+<section class="content-section">
+  <h2>How to Play Sudoku</h2>
+  <p>Sudoku is a classic number puzzle played on a 9×9 grid divided into nine 3×3 boxes. The goal is simple: fill every row, column, and box with the digits 1 through 9, with no repeats. Each puzzle starts with some numbers already placed as clues — the fewer the clues, the harder the puzzle.</p>
+<p>Start by scanning for rows, columns, or boxes that are nearly complete. Use pencil notes to track possible candidates for each empty cell. Look for "naked singles" (cells where only one number fits) and "hidden singles" (numbers that can only go in one place within a row, column, or box). With practice, you'll develop an eye for patterns and solve puzzles faster.</p>
+<p>Joy Grid offers four difficulty levels — Easy, Medium, Hard, and Expert — plus a daily challenge that's the same for everyone worldwide. Your times are saved locally, so you can track your improvement over time. Whether you're a beginner learning the basics or an expert chasing speed records, there's always a new puzzle waiting.</p>
+</section>
+
+<section class="recommend">
+  <h3>You might also like</h3>
+  <div class="recommend-grid">
+      <a href="/2048.html" class="rec-card"><span class="rec-icon">🎯</span><span class="rec-name">2048</span></a>
+      <a href="/wordle.html" class="rec-card"><span class="rec-icon">📝</span><span class="rec-name">Wordle</span></a>
+      <a href="/lights-out.html" class="rec-card"><span class="rec-icon">💡</span><span class="rec-name">Lights Out</span></a>
+  </div>
+</section>
 
 <footer>
   <p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p>

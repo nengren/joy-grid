@@ -181,6 +181,23 @@ footer a{color:var(--accent);text-decoration:none}
   .key{min-width:28px;height:48px;font-size:0.78rem}
   .key.wide{min-width:48px;font-size:0.7rem}
 }
+
+/* SEO Content & Recommendations */
+.content-section{max-width:640px;margin:0 auto;padding:40px 24px 0;position:relative;z-index:1}
+.content-section h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text,#2d2a26)}
+.content-section p{font-size:0.92rem;line-height:1.75;color:#555;margin-bottom:14px}
+.recommend{max-width:640px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:1}
+.recommend h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;color:var(--text-soft,#6b6560);text-align:center}
+.recommend-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rec-card{
+  display:flex;align-items:center;gap:10px;padding:10px 16px;
+  background:#fff;border-radius:12px;text-decoration:none;color:inherit;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.15s,box-shadow 0.15s;
+  min-width:140px;
+}
+.rec-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rec-icon{font-size:1.4rem}
+.rec-name{font-family:'Fredoka',sans-serif;font-size:0.9rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -233,6 +250,23 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </div>
 <div class="share-toast" id="shareToast">Copied!</div>
+
+
+<section class="content-section">
+  <h2>How to Play Wordle</h2>
+  <p>Wordle gives you six chances to guess a secret five-letter word. After each guess, the letters change color: green means the letter is correct and in the right position, yellow means the letter is in the word but in the wrong spot, and gray means the letter isn't in the word at all.</p>
+<p>A good opening word uses common letters like E, A, R, S, and T. After your first guess, use the color feedback to narrow down possibilities. Avoid reusing gray letters. If you have several yellows, try rearranging them into different positions. The keyboard at the bottom tracks which letters you've already tried.</p>
+<p>Joy Grid Wordle features two modes: Daily gives everyone the same word each day — perfect for comparing with friends. Unlimited mode lets you play as many rounds as you want with random words. Your daily progress is saved automatically, so you can come back and finish later.</p>
+</section>
+
+<section class="recommend">
+  <h3>You might also like</h3>
+  <div class="recommend-grid">
+      <a href="/word-search.html" class="rec-card"><span class="rec-icon">🔍</span><span class="rec-name">Word Search</span></a>
+      <a href="/sudoku.html" class="rec-card"><span class="rec-icon">🔢</span><span class="rec-name">Sudoku</span></a>
+      <a href="/memory-match.html" class="rec-card"><span class="rec-icon">🃏</span><span class="rec-name">Memory Match</span></a>
+  </div>
+</section>
 
 <footer>
   <p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p>

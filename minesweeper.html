@@ -192,6 +192,23 @@ footer a{color:var(--accent);text-decoration:none}
   .nav-links{display:none}
   .game-container{padding:16px 10px 32px}
 }
+
+/* SEO Content & Recommendations */
+.content-section{max-width:640px;margin:0 auto;padding:40px 24px 0;position:relative;z-index:1}
+.content-section h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text,#2d2a26)}
+.content-section p{font-size:0.92rem;line-height:1.75;color:#555;margin-bottom:14px}
+.recommend{max-width:640px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:1}
+.recommend h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;color:var(--text-soft,#6b6560);text-align:center}
+.recommend-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rec-card{
+  display:flex;align-items:center;gap:10px;padding:10px 16px;
+  background:#fff;border-radius:12px;text-decoration:none;color:inherit;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.15s,box-shadow 0.15s;
+  min-width:140px;
+}
+.rec-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rec-icon{font-size:1.4rem}
+.rec-name{font-family:'Fredoka',sans-serif;font-size:0.9rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -275,6 +292,23 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </div>
 <div class="share-toast" id="shareToast">Copied!</div>
+
+
+<section class="content-section">
+  <h2>How to Play Minesweeper</h2>
+  <p>Minesweeper is a logic puzzle where you uncover squares on a grid without hitting hidden mines. Each revealed square shows a number indicating how many of its eight neighboring squares contain mines. Use these clues to deduce which squares are safe and which are dangerous.</p>
+<p>Start by clicking a random square — the first click is always safe. Look for numbers next to already-revealed empty areas, where you can count and eliminate mine positions. Flag squares you're certain contain mines, then safely reveal the remaining neighbors. When a number's mine count is fully satisfied by adjacent flags, all other neighbors are safe to click.</p>
+<p>Joy Grid Minesweeper offers three board sizes: Easy (9×9 with 10 mines), Medium (16×16 with 40 mines), and Hard (16×30 with 99 mines). On mobile, long-press or use Flag Mode to place flags. The satisfaction of clearing a board through pure logic is hard to beat.</p>
+</section>
+
+<section class="recommend">
+  <h3>You might also like</h3>
+  <div class="recommend-grid">
+      <a href="/sudoku.html" class="rec-card"><span class="rec-icon">🔢</span><span class="rec-name">Sudoku</span></a>
+      <a href="/lights-out.html" class="rec-card"><span class="rec-icon">💡</span><span class="rec-name">Lights Out</span></a>
+      <a href="/wordle.html" class="rec-card"><span class="rec-icon">📝</span><span class="rec-name">Wordle</span></a>
+  </div>
+</section>
 
 <footer>
   <p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p>
