@@ -23,6 +23,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html{touch-action:manipulation}
 :root{--bg:#faf8f5;--text:#2d2a26;--text-soft:#6b6560;--accent:#ff6b35;--accent-dark:#e55a28;--radius:16px}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,0,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
@@ -53,6 +54,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
   border-radius:10px;cursor:pointer;user-select:none;-webkit-user-select:none;
   transition:transform 0.15s ease,box-shadow 0.15s;
   -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
 .tile.num{
   background:linear-gradient(145deg,#ff7b45,#ff5e20);color:#fff;
@@ -200,7 +202,7 @@ function render() {
       tile.textContent = tiles[i];
       tile.style.fontSize = fs;
       if (tiles[i] === i + 1) tile.classList.add('correct');
-      tile.addEventListener('click', () => clickTile(i));
+      tile.addEventListener('pointerup', function(e) { e.preventDefault(); clickTile(i); });
     }
     el.appendChild(tile);
   }

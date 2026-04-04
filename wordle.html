@@ -27,6 +27,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html{touch-action:manipulation}
 :root{
   --bg:#faf8f5;--text:#2d2a26;--text-soft:#6b6560;
   --accent:#6aaa64;--accent-dark:#538d4e;
@@ -35,7 +36,7 @@
   --card-shadow:0 4px 20px rgba(0,0,0,0.08);
   --radius:16px;
 }
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-text-size-adjust:100%}
 body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,0,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
 
 nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 24px}
@@ -51,7 +52,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
 .nav-links a{text-decoration:none;color:var(--text-soft);font-weight:600;font-size:0.95rem;transition:color 0.2s}
 .nav-links a:hover,.nav-links a.active{color:var(--accent)}
 
-.game-container{max-width:500px;margin:0 auto;padding:24px 16px 48px;position:relative;z-index:1}
+.game-container{max-width:500px;margin:0 auto;padding:24px 16px 48px;position:relative;z-index:1;touch-action:manipulation}
 .game-header{text-align:center;margin-bottom:16px}
 .game-header h1{font-family:'Fredoka',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:4px}
 .game-header p{color:var(--text-soft);font-size:0.9rem}
@@ -87,7 +88,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
 .row.shake{animation:shake 0.4s ease}
 
 /* Keyboard */
-.keyboard{display:flex;flex-direction:column;gap:6px;align-items:center}
+.keyboard{display:flex;flex-direction:column;gap:6px;align-items:center;touch-action:manipulation}
 .kb-row{display:flex;gap:4px}
 .key{
   min-width:32px;height:52px;border:none;border-radius:6px;
@@ -95,7 +96,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-
   font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
   text-transform:uppercase;transition:background 0.15s,color 0.15s;
   -webkit-tap-highlight-color:transparent;color:var(--text);
-  padding:0 6px;
+  padding:0 6px;touch-action:manipulation;user-select:none;-webkit-user-select:none;
 }
 .key.wide{min-width:56px;font-size:0.75rem}
 .key:active{transform:scale(0.95)}
