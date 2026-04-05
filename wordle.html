@@ -277,6 +277,38 @@ footer a{color:var(--accent);text-decoration:none}
 </footer>
 
 <script>
+  // 读取URL参数
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const modeParam = params.get('mode');
+  
+  // 如果是从子页面嵌入的，隐藏nav和footer
+  if (params.has('mode')) {
+    document.addEventListener('DOMContentLoaded', function() {
+      const nav = document.querySelector('nav');
+      const footer = document.querySelector('footer');
+      const seoSection = document.querySelector('.seo-section');
+      const recommendSection = document.querySelector('.recommend');
+      if (nav) nav.style.display = 'none';
+      if (footer) footer.style.display = 'none';
+      if (seoSection) seoSection.style.display = 'none';
+      if (recommendSection) recommendSection.style.display = 'none';
+      const container = document.querySelector('.game-container');
+      if (container) container.style.paddingTop = '16px';
+    });
+  }
+  
+  // 自动切模式
+  if (modeParam === 'daily') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setMode('daily');
+    });
+  } else if (modeParam === 'unlimited') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setMode('unlimited');
+    });
+  }
+})();
 // ===== WORD LIST =====
 const WORDS = [
   "about","above","abuse","actor","acute","admit","adopt","adult","after","again",
