@@ -351,6 +351,42 @@ let history = [];
 let timerInterval = null;
 let seconds = 0;
 let difficulty = 'easy';
+// 读取URL参数，子页面iframe会传入 ?diff=easy/hard 或 ?mode=daily
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const diffParam = params.get('diff');
+  const modeParam = params.get('mode');
+  
+  if (diffParam && ['easy','medium','hard','expert'].includes(diffParam)) {
+    difficulty = diffParam;
+  }
+  
+  // 如果是从子页面嵌入的，隐藏nav和footer，只显示游戏本身
+  if (params.has('diff') || params.has('mode')) {
+    document.addEventListener('DOMContentLoaded', function() {
+      const nav = document.querySelector('nav');
+      const footer = document.querySelector('footer');
+      const seoSection = document.querySelector('.seo-section');
+      const recommendSection = document.querySelector('.recommend');
+      if (nav) nav.style.display = 'none';
+      if (footer) footer.style.display = 'none';
+      if (seoSection) seoSection.style.display = 'none';
+      if (recommendSection) recommendSection.style.display = 'none';
+      // 游戏容器顶部padding调整
+      const container = document.querySelector('.game-container');
+      if (container) container.style.paddingTop = '16px';
+    });
+  }
+  
+  // 如果mode=daily，自动切到Daily Challenge模式
+  if (modeParam === 'daily') {
+    document.addEventListener('DOMContentLoaded', function() {
+      // 如果你的数独有Daily Challenge按钮/功能，触发它
+      const dailyBtn = document.getElementById('dailyBtn') || document.querySelector('[data-mode="daily"]');
+      if (dailyBtn) dailyBtn.click();
+    });
+  }
+})();
 let dailyMode = false;
 const cluesMap = { easy: 42, medium: 34, hard: 28, expert: 23 };
 
