@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJYRK04QSP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZJYRK04QSP");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Play Connect Four Online Free - Joy Grid</title>
+<meta name="description" content="Play Connect Four online against a smart AI for free. Drop discs to connect 4 in a row — horizontally, vertically, or diagonally. Easy, Medium, and Hard difficulty.">
+<meta name="keywords" content="connect four online, connect 4 game, four in a row, drop four game, free connect four">
+<link rel="canonical" href="https://joy-grid.com/connect-four.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="google-site-verification" content="7DqxoOPpfo0PQeDNIBDzLEqJ08DLbEXdFALsN3DRTM8" />
+<meta property="og:title" content="Play Connect Four Online Free - Joy Grid">
+<meta property="og:description" content="Drop discs and connect 4 in a row to win! Play against AI.">
+<meta property="og:url" content="https://joy-grid.com/connect-four.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Joy Grid">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Play Connect Four Online Free - Joy Grid">
+<meta name="twitter:description" content="Drop discs and connect 4 in a row to win! Play against AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoGame","name":"Connect Four","url":"https://joy-grid.com/connect-four.html","description":"Play Connect Four online against AI. Drop discs to connect 4 in a row horizontally, vertically, or diagonally.","genre":"Strategy","gamePlatform":"Web Browser","applicationCategory":"Game","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf8f5;--text:#2d2a26;--text-soft:#6b6560;--accent:#4ecdc4;--red:#ff6b35;--yellow:#ffd93d;--board-bg:#2956a8;--board-border:#1e3f7a;--radius:16px}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,0,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 24px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-grid{display:grid;grid-template-columns:repeat(2,9px);gap:2px}
+.logo-grid span{width:9px;height:9px;border-radius:2px}
+.logo-grid span:nth-child(1){background:#ff6b35}.logo-grid span:nth-child(2){background:#4ecdc4}.logo-grid span:nth-child(3){background:#7c5cbf}.logo-grid span:nth-child(4){background:#ffd93d}
+.nav-links{display:flex;gap:20px}.nav-links a{text-decoration:none;color:var(--text-soft);font-weight:600;font-size:0.9rem}.nav-links a.active{color:var(--accent)}
+.game-container{max-width:460px;margin:0 auto;padding:24px 16px 48px;position:relative;z-index:1}
+.game-header{text-align:center;margin-bottom:16px}
+.game-header h1{font-family:'Fredoka',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:4px}
+.game-header p{color:var(--text-soft);font-size:0.9rem}
+.scoreboard{display:flex;justify-content:center;gap:28px;margin-bottom:14px;font-family:'Fredoka',sans-serif}
+.score-item{text-align:center}
+.score-label{font-size:0.75rem;color:var(--text-soft);font-weight:600;text-transform:uppercase;display:flex;align-items:center;gap:4px;justify-content:center}
+.score-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.score-dot.red{background:var(--red)}.score-dot.yel{background:var(--yellow)}
+.score-val{font-size:1.6rem;font-weight:700}
+.score-val.r-color{color:var(--red)}.score-val.y-color{color:var(--yellow)}.score-val.d-color{color:var(--text-soft)}
+.diff-btns{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.diff-btn{padding:6px 16px;border:2px solid #e0e0e0;border-radius:10px;background:none;font-family:'Nunito',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;color:var(--text-soft);transition:all 0.15s}
+.diff-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.status{text-align:center;margin-bottom:14px;font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;min-height:26px}
+/* Board */
+.board-wrapper{background:var(--board-bg);border-radius:var(--radius);box-shadow:0 6px 28px rgba(0,0,0,0.18);padding:10px 10px 14px;margin-bottom:18px;border:3px solid var(--board-border)}
+/* Column hover indicators */
+.col-indicators{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px;padding:0 2px}
+.col-ind{height:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:6px;transition:background 0.15s}
+.col-ind:hover{background:rgba(255,255,255,0.1)}
+.col-ind .arrow{opacity:0;transition:opacity 0.15s;font-size:1rem;color:rgba(255,255,255,0.7)}
+.col-ind:hover .arrow{opacity:1}
+.col-ind.disabled{cursor:default}.col-ind.disabled:hover{background:none}.col-ind.disabled:hover .arrow{opacity:0}
+/* Grid */
+.board-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:0 2px}
+.cell{aspect-ratio:1;border-radius:50%;background:rgba(0,0,0,0.2);box-shadow:inset 0 3px 6px rgba(0,0,0,0.15);cursor:pointer;transition:background 0.15s,box-shadow 0.15s,transform 0.15s;-webkit-tap-highlight-color:transparent;position:relative}
+.cell.red{background:var(--red);box-shadow:inset 0 -2px 4px rgba(0,0,0,0.15),0 1px 3px rgba(0,0,0,0.15)}
+.cell.yellow{background:var(--yellow);box-shadow:inset 0 -2px 4px rgba(0,0,0,0.1),0 1px 3px rgba(0,0,0,0.15)}
+.cell.win-cell{animation:winBlink 0.5s ease 3}
+@keyframes winBlink{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+@keyframes dropIn{0%{transform:translateY(-300%);opacity:0.5}70%{transform:translateY(5%)}85%{transform:translateY(-3%)}100%{transform:translateY(0);opacity:1}}
+.cell.drop{animation:dropIn 0.4s ease-out}
+.actions{display:flex;gap:8px;justify-content:center}
+.action-btn{padding:8px 20px;border:2px solid #e0e0e0;border-radius:12px;background:none;font-family:'Nunito',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;color:var(--text-soft)}
+/* Overlay */
+.overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;justify-content:center;align-items:center}
+.overlay.show{display:flex}
+.overlay-card{background:#fff;border-radius:var(--radius);padding:36px;text-align:center;max-width:380px;margin:20px;width:90%;position:relative;animation:popIn 0.4s ease}
+.overlay-card h2{font-family:'Fredoka',sans-serif;font-size:1.8rem;margin-bottom:8px}
+.overlay-card p{color:var(--text-soft);margin-bottom:20px;line-height:1.5}
+.play-btn{padding:12px 32px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;cursor:pointer}
+.close-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;border-radius:50%;background:rgba(0,0,0,0.08);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--text-soft)}
+/* Share */
+.share-section{margin-top:20px;padding-top:20px;border-top:1px solid #eee}
+.share-label{font-size:0.85rem;color:var(--text-soft);margin-bottom:10px;font-weight:600}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-btn{width:44px;height:44px;border:none;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.15s;font-size:1.2rem;color:#fff;font-weight:700;font-family:'Nunito',sans-serif;-webkit-tap-highlight-color:transparent}
+.share-btn:hover{transform:scale(1.1)}.share-btn:active{transform:scale(0.95)}
+.share-btn.twitter{background:#000}.share-btn.facebook{background:#1877F2;font-size:1.4rem}.share-btn.whatsapp{background:#25D366}.share-btn.native-share{background:var(--accent);font-size:1.3rem}.share-btn.copy-link{background:#6b6560;font-size:1.2rem}
+.share-toast{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 24px;border-radius:10px;font-size:0.9rem;font-weight:600;z-index:300}
+.share-toast.show{display:block}
+@keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+footer{text-align:center;padding:24px;color:var(--text-soft);font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.06);position:relative;z-index:1}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:640px){.nav-links{display:none}}
+/* SEO */
+.content-section{max-width:640px;margin:0 auto;padding:40px 24px 0;position:relative;z-index:1}
+.content-section h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text)}
+.content-section p{font-size:0.92rem;line-height:1.75;color:#555;margin-bottom:14px}
+.recommend{max-width:640px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:1}
+.recommend h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;color:var(--text-soft);text-align:center}
+.recommend-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rec-card{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;border-radius:12px;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.15s,box-shadow 0.15s;min-width:140px}
+.rec-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rec-icon{font-size:1.4rem}.rec-name{font-family:'Fredoka',sans-serif;font-size:0.9rem;font-weight:600}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="/" class="logo"><div class="logo-grid"><span></span><span></span><span></span><span></span></div>Joy Grid</a><div class="nav-links"><a href="/sudoku.html">Sudoku</a><a href="/2048.html">2048</a><a href="/connect-four.html" class="active">Connect 4</a></div></div></nav>
+
+<div class="game-container">
+<div class="game-header"><h1>Connect Four</h1><p>Drop discs to connect 4 in a row!</p></div>
+<div class="scoreboard">
+<div class="score-item"><div class="score-label"><span class="score-dot red"></span> You</div><div class="score-val r-color" id="scoreR">0</div></div>
+<div class="score-item"><div class="score-label">Draw</div><div class="score-val d-color" id="scoreD">0</div></div>
+<div class="score-item"><div class="score-label"><span class="score-dot yel"></span> AI</div><div class="score-val y-color" id="scoreY">0</div></div>
+</div>
+<div class="diff-btns">
+<button class="diff-btn active" id="diffEasy" onclick="setDiff('easy')">Easy</button>
+<button class="diff-btn" id="diffMedium" onclick="setDiff('medium')">Medium</button>
+<button class="diff-btn" id="diffHard" onclick="setDiff('hard')">Hard</button>
+</div>
+<div class="status" id="status">Your turn — pick a column!</div>
+<div class="board-wrapper">
+<div class="col-indicators" id="colIndicators"></div>
+<div class="board-grid" id="board"></div>
+</div>
+<div class="actions"><button class="action-btn" onclick="newGame()">🔄 New Game</button><button class="action-btn" onclick="resetScore()">📊 Reset Score</button></div>
+</div>
+
+<div class="overlay" id="winOverlay"><div class="overlay-card">
+<button class="close-btn" onclick="document.getElementById('winOverlay').classList.remove('show')">✕</button>
+<h2 id="resultTitle">🎉 You Win!</h2><p id="winMsg"></p>
+<button class="play-btn" onclick="newGame();document.getElementById('winOverlay').classList.remove('show')">Play Again</button>
+<div class="share-section"><div class="share-label">Challenge your friends</div><div class="share-btns">
+<button class="share-btn native-share" id="nativeShareBtn" onclick="nativeShare()">📤</button>
+<button class="share-btn twitter" onclick="shareTwitter()">𝕏</button>
+<button class="share-btn facebook" onclick="shareFacebook()">f</button>
+<button class="share-btn whatsapp" onclick="shareWhatsApp()">WA</button>
+<button class="share-btn copy-link" onclick="copyShareText()">📋</button>
+</div></div>
+</div></div>
+<div class="share-toast" id="shareToast">Copied!</div>
+
+<section class="content-section">
+<h2>How to Play Connect Four</h2>
+<p>Connect Four is a classic two-player strategy game played on a 7-column, 6-row vertical grid. You play as Red and the AI plays as Yellow. On each turn, you drop a disc into a column — it falls to the lowest available row. The first player to get four discs in a row horizontally, vertically, or diagonally wins!</p>
+<p>The center column is the most powerful position on the board because it connects to the most possible winning lines. Experienced players fight for center control early. Watch out for "traps" — situations where you threaten to win in two directions at once, forcing the AI into an impossible choice.</p>
+<p>On Easy mode, the AI plays casually — great for learning the ropes. Medium mode uses solid strategy and will punish obvious mistakes. Hard mode looks several moves ahead and plays near-optimally — beating it requires real strategic thinking. Can you find a way to win?</p>
+</section>
+
+<section class="recommend">
+<h3>You might also like</h3>
+<div class="recommend-grid">
+<a href="/minesweeper.html" class="rec-card"><span class="rec-icon">💣</span><span class="rec-name">Minesweeper</span></a>
+<a href="/2048.html" class="rec-card"><span class="rec-icon">🎯</span><span class="rec-name">2048</span></a>
+<a href="/lights-out.html" class="rec-card"><span class="rec-icon">💡</span><span class="rec-name">Lights Out</span></a>
+</div>
+</section>
+
+<footer><p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p></footer>
+
+<script>
+const ROWS=6, COLS=7;
+let grid, currentPlayer, gameOver, difficulty='easy', scores={r:0,y:0,d:0}, lastResult='', moveCount=0;
+
+function newGame(){
+  grid=Array.from({length:ROWS},()=>Array(COLS).fill(0)); // 0=empty,1=red(player),2=yellow(AI)
+  currentPlayer=1; gameOver=false; moveCount=0;
+  document.getElementById('winOverlay').classList.remove('show');
+  document.getElementById('status').textContent='Your turn — pick a column!';
+  render();
+}
+
+function resetScore(){scores={r:0,y:0,d:0};updateScore();newGame();}
+function updateScore(){
+  document.getElementById('scoreR').textContent=scores.r;
+  document.getElementById('scoreY').textContent=scores.y;
+  document.getElementById('scoreD').textContent=scores.d;
+}
+function setDiff(d){
+  difficulty=d;
+  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('diff'+d.charAt(0).toUpperCase()+d.slice(1)).classList.add('active');
+  newGame();
+}
+
+function render(){
+  // Column indicators
+  const indEl=document.getElementById('colIndicators');
+  indEl.innerHTML='';
+  for(let c=0;c<COLS;c++){
+    const div=document.createElement('div');
+    div.className='col-ind'+(grid[0][c]!==0||gameOver?' disabled':'');
+    div.innerHTML='<span class="arrow">▼</span>';
+    div.addEventListener('click',()=>playerDrop(c));
+    indEl.appendChild(div);
+  }
+  // Board
+  const bEl=document.getElementById('board');
+  bEl.innerHTML='';
+  for(let r=0;r<ROWS;r++){
+    for(let c=0;c<COLS;c++){
+      const cell=document.createElement('div');
+      cell.className='cell';
+      if(grid[r][c]===1)cell.classList.add('red');
+      else if(grid[r][c]===2)cell.classList.add('yellow');
+      cell.dataset.r=r;cell.dataset.c=c;
+      cell.addEventListener('click',()=>playerDrop(c));
+      bEl.appendChild(cell);
+    }
+  }
+}
+
+function getDropRow(col){
+  for(let r=ROWS-1;r>=0;r--){if(grid[r][col]===0)return r;}
+  return -1;
+}
+
+function dropDisc(col,player){
+  const row=getDropRow(col);
+  if(row<0)return -1;
+  grid[row][col]=player;
+  moveCount++;
+  return row;
+}
+
+function playerDrop(col){
+  if(gameOver||currentPlayer!==1)return;
+  if(getDropRow(col)<0)return;
+  const row=dropDisc(col,1);
+  render();
+  animateDrop(row,col);
+  if(checkWin(1)){endGame('win');return;}
+  if(moveCount>=ROWS*COLS){endGame('draw');return;}
+  currentPlayer=2;
+  document.getElementById('status').textContent='AI is thinking...';
+  setTimeout(()=>{
+    const aiCol=aiMove();
+    const aiRow=dropDisc(aiCol,2);
+    render();
+    animateDrop(aiRow,aiCol);
+    if(checkWin(2)){endGame('lose');return;}
+    if(moveCount>=ROWS*COLS){endGame('draw');return;}
+    currentPlayer=1;
+    document.getElementById('status').textContent='Your turn — pick a column!';
+  },350);
+}
+
+function animateDrop(row,col){
+  const idx=row*COLS+col;
+  const cells=document.querySelectorAll('.board-grid .cell');
+  if(cells[idx])cells[idx].classList.add('drop');
+}
+
+// Win check
+function checkWin(p){
+  const dirs=[[0,1],[1,0],[1,1],[1,-1]];
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    if(grid[r][c]!==p)continue;
+    for(const[dr,dc]of dirs){
+      let count=0,cells=[];
+      for(let i=0;i<4;i++){
+        const nr=r+dr*i,nc=c+dc*i;
+        if(nr<0||nr>=ROWS||nc<0||nc>=COLS||grid[nr][nc]!==p)break;
+        count++;cells.push([nr,nc]);
+      }
+      if(count>=4){
+        highlightWin(cells);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function highlightWin(cells){
+  const allCells=document.querySelectorAll('.board-grid .cell');
+  cells.forEach(([r,c])=>{
+    const idx=r*COLS+c;
+    if(allCells[idx])allCells[idx].classList.add('win-cell');
+  });
+}
+
+function endGame(result){
+  gameOver=true;lastResult=result;
+  if(result==='win'){
+    scores.r++;
+    document.getElementById('status').textContent='🎉 You win!';
+    document.getElementById('resultTitle').textContent='🎉 You Win!';
+    document.getElementById('winMsg').textContent=`You beat the AI on ${difficulty} mode in ${moveCount} moves!`;
+  }else if(result==='lose'){
+    scores.y++;
+    document.getElementById('status').textContent='😔 AI wins!';
+    document.getElementById('resultTitle').textContent='😔 AI Wins!';
+    document.getElementById('winMsg').textContent=`The AI beat you on ${difficulty} mode. Try again!`;
+  }else{
+    scores.d++;
+    document.getElementById('status').textContent='🤝 Draw!';
+    document.getElementById('resultTitle').textContent='🤝 Draw!';
+    document.getElementById('winMsg').textContent='The board is full — nobody wins!';
+  }
+  updateScore();
+  setTimeout(()=>document.getElementById('winOverlay').classList.add('show'),900);
+}
+
+// ===== AI =====
+function aiMove(){
+  if(difficulty==='easy')return aiEasy();
+  if(difficulty==='medium')return aiMedium();
+  return aiHard();
+}
+
+function getValidCols(){
+  const cols=[];
+  for(let c=0;c<COLS;c++)if(getDropRow(c)>=0)cols.push(c);
+  return cols;
+}
+
+function aiEasy(){
+  // Win if can, block if must, else random
+  const valid=getValidCols();
+  for(const c of valid){const r=tryDrop(c,2);if(simCheckWin(2)){undoDrop(r,c);return c;}undoDrop(r,c);}
+  for(const c of valid){const r=tryDrop(c,1);if(simCheckWin(1)){undoDrop(r,c);return c;}undoDrop(r,c);}
+  return valid[Math.floor(Math.random()*valid.length)];
+}
+
+function aiMedium(){
+  const valid=getValidCols();
+  // 1. Win
+  for(const c of valid){const r=tryDrop(c,2);if(simCheckWin(2)){undoDrop(r,c);return c;}undoDrop(r,c);}
+  // 2. Block
+  for(const c of valid){const r=tryDrop(c,1);if(simCheckWin(1)){undoDrop(r,c);return c;}undoDrop(r,c);}
+  // 3. Avoid giving opponent a win
+  const safe=valid.filter(c=>{
+    const r=tryDrop(c,2);
+    let bad=false;
+    const r2=getDropRow(c); // row above
+    if(r2>=0){grid[r2][c]=1;if(simCheckWin(1))bad=true;grid[r2][c]=0;}
+    undoDrop(r,c);
+    return !bad;
+  });
+  const pool=safe.length>0?safe:valid;
+  // 4. Prefer center
+  const scored=pool.map(c=>({c,s:4-Math.abs(c-3)+Math.random()*0.5}));
+  scored.sort((a,b)=>b.s-a.s);
+  return scored[0].c;
+}
+
+function aiHard(){
+  // Minimax with alpha-beta, depth limited
+  const DEPTH=6;
+  const valid=getValidCols();
+  // Move ordering: center first
+  valid.sort((a,b)=>Math.abs(a-3)-Math.abs(b-3));
+  let bestScore=-Infinity, bestCol=valid[0];
+  for(const c of valid){
+    const r=tryDrop(c,2);
+    const score=minimax(DEPTH-1,false,-Infinity,Infinity);
+    undoDrop(r,c);
+    if(score>bestScore){bestScore=score;bestCol=c;}
+  }
+  return bestCol;
+}
+
+function minimax(depth,isMax,alpha,beta){
+  if(simCheckWin(2))return 1000+depth;
+  if(simCheckWin(1))return -(1000+depth);
+  const valid=getValidCols();
+  if(valid.length===0||depth===0)return evaluate();
+  valid.sort((a,b)=>Math.abs(a-3)-Math.abs(b-3));
+  if(isMax){
+    let best=-Infinity;
+    for(const c of valid){
+      const r=tryDrop(c,2);
+      const val=minimax(depth-1,false,alpha,beta);
+      undoDrop(r,c);
+      best=Math.max(best,val);alpha=Math.max(alpha,val);
+      if(beta<=alpha)break;
+    }
+    return best;
+  }else{
+    let best=Infinity;
+    for(const c of valid){
+      const r=tryDrop(c,1);
+      const val=minimax(depth-1,true,alpha,beta);
+      undoDrop(r,c);
+      best=Math.min(best,val);beta=Math.min(beta,val);
+      if(beta<=alpha)break;
+    }
+    return best;
+  }
+}
+
+function evaluate(){
+  let score=0;
+  // Score all windows of 4
+  const scoreWindow=(cells)=>{
+    let ai=0,pl=0,empty=0;
+    for(const[r,c]of cells){
+      if(grid[r][c]===2)ai++;else if(grid[r][c]===1)pl++;else empty++;
+    }
+    if(ai===4)return 100;if(ai===3&&empty===1)return 5;if(ai===2&&empty===2)return 2;
+    if(pl===4)return -100;if(pl===3&&empty===1)return -4;
+    return 0;
+  };
+  // Horizontal
+  for(let r=0;r<ROWS;r++)for(let c=0;c<=COLS-4;c++){
+    score+=scoreWindow([[r,c],[r,c+1],[r,c+2],[r,c+3]]);
+  }
+  // Vertical
+  for(let r=0;r<=ROWS-4;r++)for(let c=0;c<COLS;c++){
+    score+=scoreWindow([[r,c],[r+1,c],[r+2,c],[r+3,c]]);
+  }
+  // Diag down-right
+  for(let r=0;r<=ROWS-4;r++)for(let c=0;c<=COLS-4;c++){
+    score+=scoreWindow([[r,c],[r+1,c+1],[r+2,c+2],[r+3,c+3]]);
+  }
+  // Diag down-left
+  for(let r=0;r<=ROWS-4;r++)for(let c=3;c<COLS;c++){
+    score+=scoreWindow([[r,c],[r+1,c-1],[r+2,c-2],[r+3,c-3]]);
+  }
+  // Center preference
+  for(let r=0;r<ROWS;r++){if(grid[r][3]===2)score+=3;else if(grid[r][3]===1)score-=3;}
+  return score;
+}
+
+function tryDrop(col,player){
+  for(let r=ROWS-1;r>=0;r--){if(grid[r][col]===0){grid[r][col]=player;return r;}}
+  return -1;
+}
+function undoDrop(row,col){if(row>=0)grid[row][col]=0;}
+
+function simCheckWin(p){
+  const dirs=[[0,1],[1,0],[1,1],[1,-1]];
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    if(grid[r][c]!==p)continue;
+    for(const[dr,dc]of dirs){
+      let count=0;
+      for(let i=0;i<4;i++){
+        const nr=r+dr*i,nc=c+dc*i;
+        if(nr<0||nr>=ROWS||nc<0||nc>=COLS||grid[nr][nc]!==p)break;
+        count++;
+      }
+      if(count>=4)return true;
+    }
+  }
+  return false;
+}
+
+// ===== Share =====
+function getShareText(){
+  const r=lastResult==='win'?'beat':lastResult==='draw'?'tied with':'lost to';
+  return `🔴🟡 I ${r} the Connect Four AI on ${difficulty} mode! Can you beat it?\n\nhttps://joy-grid.com/connect-four.html`;
+}
+function getShareUrl(){return 'https://joy-grid.com/connect-four.html';}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(getShareText()),'_blank');}
+function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(getShareUrl()),'_blank');}
+function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(getShareText()),'_blank');}
+function nativeShare(){if(navigator.share){navigator.share({title:'Joy Grid',text:getShareText(),url:getShareUrl()}).catch(function(){});}}
+function copyShareText(){navigator.clipboard.writeText(getShareText()).then(function(){var t=document.getElementById('shareToast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);});}
+if(!navigator.share){var ns=document.getElementById('nativeShareBtn');if(ns)ns.style.display='none';}
+
+newGame();
+</script>
+</body>
+</html>
