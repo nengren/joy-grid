@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJYRK04QSP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZJYRK04QSP");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Play Tic Tac Toe Online Free - Joy Grid</title>
+<meta name="description" content="Play Tic Tac Toe online against a smart AI. Choose Easy, Medium, or Impossible difficulty. Classic X and O game, free, no signup needed.">
+<meta name="keywords" content="tic tac toe online, tic tac toe game, noughts and crosses, X and O game, free tic tac toe">
+<link rel="canonical" href="https://joy-grid.com/tic-tac-toe.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="google-site-verification" content="7DqxoOPpfo0PQeDNIBDzLEqJ08DLbEXdFALsN3DRTM8" />
+<meta property="og:title" content="Play Tic Tac Toe Online Free - Joy Grid">
+<meta property="og:description" content="Play Tic Tac Toe vs AI — Easy, Medium, or Impossible!">
+<meta property="og:url" content="https://joy-grid.com/tic-tac-toe.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Joy Grid">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Play Tic Tac Toe Online Free - Joy Grid">
+<meta name="twitter:description" content="Play Tic Tac Toe vs AI — Easy, Medium, or Impossible!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoGame","name":"Tic Tac Toe","url":"https://joy-grid.com/tic-tac-toe.html","description":"Play Tic Tac Toe online against AI. Choose from Easy, Medium, or Impossible difficulty.","genre":"Puzzle","gamePlatform":"Web Browser","applicationCategory":"Game","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf8f5;--text:#2d2a26;--text-soft:#6b6560;--accent:#ff6b35;--accent2:#4ecdc4;--radius:16px}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(0,0,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 24px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-grid{display:grid;grid-template-columns:repeat(2,9px);gap:2px}
+.logo-grid span{width:9px;height:9px;border-radius:2px}
+.logo-grid span:nth-child(1){background:#ff6b35}.logo-grid span:nth-child(2){background:#4ecdc4}.logo-grid span:nth-child(3){background:#7c5cbf}.logo-grid span:nth-child(4){background:#ffd93d}
+.nav-links{display:flex;gap:20px}.nav-links a{text-decoration:none;color:var(--text-soft);font-weight:600;font-size:0.9rem}.nav-links a.active{color:var(--accent)}
+.game-container{max-width:440px;margin:0 auto;padding:24px 16px 48px;position:relative;z-index:1}
+.game-header{text-align:center;margin-bottom:20px}
+.game-header h1{font-family:'Fredoka',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:4px}
+.game-header p{color:var(--text-soft);font-size:0.9rem}
+.scoreboard{display:flex;justify-content:center;gap:24px;margin-bottom:16px;font-family:'Fredoka',sans-serif}
+.score-item{text-align:center}
+.score-label{font-size:0.75rem;color:var(--text-soft);font-weight:600;text-transform:uppercase}
+.score-val{font-size:1.6rem;font-weight:700}
+.score-val.x-color{color:var(--accent)}
+.score-val.o-color{color:var(--accent2)}
+.score-val.d-color{color:var(--text-soft)}
+.status{text-align:center;margin-bottom:16px;font-family:'Fredoka',sans-serif;font-size:1.1rem;font-weight:600;min-height:28px}
+.diff-btns{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.diff-btn{padding:6px 16px;border:2px solid #e0e0e0;border-radius:10px;background:none;font-family:'Nunito',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;color:var(--text-soft);transition:all 0.15s}
+.diff-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.board-wrapper{background:#fff;border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:20px;margin-bottom:20px}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:300px;margin:0 auto}
+.cell{aspect-ratio:1;border-radius:12px;background:#f5f3f0;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:3rem;font-weight:700;transition:all 0.2s;-webkit-tap-highlight-color:transparent;border:3px solid transparent}
+.cell:hover:not(.taken){background:#ece9e4}
+.cell.taken{cursor:default}
+.cell.x{color:var(--accent)}
+.cell.o{color:var(--accent2)}
+.cell.win-cell{border-color:var(--accent);animation:winPulse 0.6s ease}
+.cell.win-cell.o{border-color:var(--accent2)}
+@keyframes winPulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes popIn2{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.cell .mark{animation:popIn2 0.2s ease}
+.actions{display:flex;gap:8px;justify-content:center}
+.action-btn{padding:8px 20px;border:2px solid #e0e0e0;border-radius:12px;background:none;font-family:'Nunito',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;color:var(--text-soft)}
+.overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;justify-content:center;align-items:center}
+.overlay.show{display:flex}
+.overlay-card{background:#fff;border-radius:var(--radius);padding:36px;text-align:center;max-width:360px;margin:20px;width:90%;position:relative;animation:popIn 0.4s ease}
+.overlay-card h2{font-family:'Fredoka',sans-serif;font-size:1.8rem;margin-bottom:8px}
+.overlay-card p{color:var(--text-soft);margin-bottom:20px}
+.play-btn{padding:12px 32px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;cursor:pointer}
+.close-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;border-radius:50%;background:rgba(0,0,0,0.08);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--text-soft)}
+.share-section{margin-top:20px;padding-top:20px;border-top:1px solid #eee}
+.share-label{font-size:0.85rem;color:var(--text-soft);margin-bottom:10px;font-weight:600}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-btn{width:44px;height:44px;border:none;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.15s;font-size:1.2rem;color:#fff;font-weight:700;font-family:'Nunito',sans-serif;-webkit-tap-highlight-color:transparent}
+.share-btn:hover{transform:scale(1.1)}.share-btn:active{transform:scale(0.95)}
+.share-btn.twitter{background:#000}.share-btn.facebook{background:#1877F2;font-size:1.4rem}.share-btn.whatsapp{background:#25D366}.share-btn.native-share{background:var(--accent);font-size:1.3rem}.share-btn.copy-link{background:#6b6560;font-size:1.2rem}
+.share-toast{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 24px;border-radius:10px;font-size:0.9rem;font-weight:600;z-index:300}
+.share-toast.show{display:block}
+@keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+footer{text-align:center;padding:24px;color:var(--text-soft);font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.06);position:relative;z-index:1}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:640px){.nav-links{display:none}.cell{font-size:2.4rem}}
+.content-section{max-width:640px;margin:0 auto;padding:40px 24px 0;position:relative;z-index:1}
+.content-section h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text)}
+.content-section p{font-size:0.92rem;line-height:1.75;color:#555;margin-bottom:14px}
+.recommend{max-width:640px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:1}
+.recommend h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;color:var(--text-soft);text-align:center}
+.recommend-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rec-card{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;border-radius:12px;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.15s,box-shadow 0.15s;min-width:140px}
+.rec-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rec-icon{font-size:1.4rem}.rec-name{font-family:'Fredoka',sans-serif;font-size:0.9rem;font-weight:600}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="/" class="logo"><div class="logo-grid"><span></span><span></span><span></span><span></span></div>Joy Grid</a><div class="nav-links"><a href="/sudoku.html">Sudoku</a><a href="/2048.html">2048</a><a href="/tic-tac-toe.html" class="active">Tic Tac Toe</a></div></div></nav>
+
+<div class="game-container">
+<div class="game-header"><h1>Tic Tac Toe</h1><p>Play against a smart AI opponent</p></div>
+<div class="scoreboard">
+<div class="score-item"><div class="score-label">You (X)</div><div class="score-val x-color" id="scoreX">0</div></div>
+<div class="score-item"><div class="score-label">Draw</div><div class="score-val d-color" id="scoreD">0</div></div>
+<div class="score-item"><div class="score-label">AI (O)</div><div class="score-val o-color" id="scoreO">0</div></div>
+</div>
+<div class="diff-btns">
+<button class="diff-btn active" onclick="setDiff('easy')">Easy</button>
+<button class="diff-btn" onclick="setDiff('medium')">Medium</button>
+<button class="diff-btn" onclick="setDiff('impossible')">Impossible</button>
+</div>
+<div class="status" id="status">Your turn — tap a square!</div>
+<div class="board-wrapper"><div class="board" id="board"></div></div>
+<div class="actions"><button class="action-btn" onclick="newGame()">🔄 New Game</button><button class="action-btn" onclick="resetScore()">📊 Reset Score</button></div>
+</div>
+
+<div class="overlay" id="winOverlay"><div class="overlay-card">
+<button class="close-btn" onclick="document.getElementById('winOverlay').classList.remove('show')">✕</button>
+<h2 id="resultTitle">🎉 You Win!</h2><p id="winMsg"></p>
+<button class="play-btn" onclick="newGame();document.getElementById('winOverlay').classList.remove('show')">Play Again</button>
+<div class="share-section"><div class="share-label">Challenge your friends</div><div class="share-btns">
+<button class="share-btn native-share" id="nativeShareBtn" onclick="nativeShare()">📤</button>
+<button class="share-btn twitter" onclick="shareTwitter()">𝕏</button>
+<button class="share-btn facebook" onclick="shareFacebook()">f</button>
+<button class="share-btn whatsapp" onclick="shareWhatsApp()">WA</button>
+<button class="share-btn copy-link" onclick="copyShareText()">📋</button>
+</div></div>
+</div></div>
+<div class="share-toast" id="shareToast">Copied!</div>
+
+<section class="content-section">
+<h2>How to Play Tic Tac Toe</h2>
+<p>Tic Tac Toe (also known as Noughts and Crosses or Xs and Os) is a two-player game where you take turns marking spaces in a 3×3 grid. You play as X and the AI plays as O. The first player to get three marks in a horizontal, vertical, or diagonal row wins the game.</p>
+<p>On Easy mode, the AI makes random moves — perfect for beginners. Medium mode uses basic strategy, blocking your winning moves while trying to win itself. On Impossible mode, the AI uses the minimax algorithm — it plays perfectly and will never lose. Your best result on Impossible is a draw!</p>
+<p>Despite its simplicity, Tic Tac Toe teaches important strategic concepts: controlling the center, forcing your opponent into defensive moves, and setting up "forks" where you threaten to win in two directions at once. It's the perfect quick game for a mental break.</p>
+</section>
+
+<section class="recommend">
+<h3>You might also like</h3>
+<div class="recommend-grid">
+<a href="/minesweeper.html" class="rec-card"><span class="rec-icon">💣</span><span class="rec-name">Minesweeper</span></a>
+<a href="/memory-match.html" class="rec-card"><span class="rec-icon">🃏</span><span class="rec-name">Memory Match</span></a>
+<a href="/sliding-puzzle.html" class="rec-card"><span class="rec-icon">🧩</span><span class="rec-name">Sliding Puzzle</span></a>
+</div>
+</section>
+
+<footer><p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p></footer>
+
+<script>
+let board, currentPlayer, gameOver, difficulty='easy', scores={x:0,o:0,d:0}, lastResult='';
+const LINES=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+function newGame(){
+  board=Array(9).fill('');currentPlayer='X';gameOver=false;
+  document.getElementById('winOverlay').classList.remove('show');
+  document.getElementById('status').textContent='Your turn — tap a square!';
+  render();
+}
+function resetScore(){scores={x:0,o:0,d:0};updateScore();newGame();}
+function updateScore(){
+  document.getElementById('scoreX').textContent=scores.x;
+  document.getElementById('scoreO').textContent=scores.o;
+  document.getElementById('scoreD').textContent=scores.d;
+}
+function setDiff(d){
+  difficulty=d;
+  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  newGame();
+}
+function render(){
+  const el=document.getElementById('board');
+  el.innerHTML='';
+  for(let i=0;i<9;i++){
+    const cell=document.createElement('div');
+    cell.className='cell'+(board[i]?' taken':'')+(board[i]==='X'?' x':'')+(board[i]==='O'?' o':'');
+    if(board[i])cell.innerHTML=`<span class="mark">${board[i]}</span>`;
+    cell.addEventListener('click',()=>handleClick(i));
+    el.appendChild(cell);
+  }
+}
+function handleClick(i){
+  if(gameOver||board[i]||currentPlayer!=='X')return;
+  board[i]='X';
+  render();
+  if(checkEnd())return;
+  currentPlayer='O';
+  document.getElementById('status').textContent='AI is thinking...';
+  setTimeout(()=>{aiMove();render();checkEnd();},300);
+}
+function checkEnd(){
+  const w=getWinner(board);
+  if(w){
+    gameOver=true;
+    const winLine=LINES.find(l=>board[l[0]]===w&&board[l[1]]===w&&board[l[2]]===w);
+    if(winLine){
+      setTimeout(()=>{
+        document.querySelectorAll('.cell').forEach((c,i)=>{
+          if(winLine.includes(i))c.classList.add('win-cell');
+        });
+      },50);
+    }
+    if(w==='X'){scores.x++;lastResult='win';document.getElementById('status').textContent='🎉 You win!';document.getElementById('resultTitle').textContent='🎉 You Win!';document.getElementById('winMsg').textContent=`You beat the AI on ${difficulty} mode!`;}
+    else{scores.o++;lastResult='lose';document.getElementById('status').textContent='😔 AI wins!';document.getElementById('resultTitle').textContent='😔 AI Wins!';document.getElementById('winMsg').textContent=`The AI beat you on ${difficulty} mode. Try again!`;}
+    updateScore();
+    setTimeout(()=>document.getElementById('winOverlay').classList.add('show'),800);
+    return true;
+  }
+  if(!board.includes('')){
+    gameOver=true;scores.d++;lastResult='draw';
+    document.getElementById('status').textContent='🤝 It\'s a draw!';
+    document.getElementById('resultTitle').textContent='🤝 Draw!';
+    document.getElementById('winMsg').textContent=`It's a tie on ${difficulty} mode!`;
+    updateScore();
+    setTimeout(()=>document.getElementById('winOverlay').classList.add('show'),800);
+    return true;
+  }
+  return false;
+}
+function getWinner(b){
+  for(const[a,c,d]of LINES){if(b[a]&&b[a]===b[c]&&b[a]===b[d])return b[a];}
+  return null;
+}
+function aiMove(){
+  if(difficulty==='easy')easyAI();
+  else if(difficulty==='medium')mediumAI();
+  else impossibleAI();
+  currentPlayer='X';
+  document.getElementById('status').textContent='Your turn — tap a square!';
+}
+function easyAI(){
+  const empty=board.map((v,i)=>v===''?i:-1).filter(i=>i>=0);
+  board[empty[Math.floor(Math.random()*empty.length)]]='O';
+}
+function mediumAI(){
+  // Try to win
+  for(let i=0;i<9;i++){if(board[i]===''){board[i]='O';if(getWinner(board)==='O')return;board[i]='';}}
+  // Block player
+  for(let i=0;i<9;i++){if(board[i]===''){board[i]='X';if(getWinner(board)==='X'){board[i]='O';return;}board[i]='';}}
+  // Center
+  if(board[4]===''){board[4]='O';return;}
+  // Random
+  easyAI();
+}
+function impossibleAI(){
+  let bestScore=-Infinity,bestMove=-1;
+  for(let i=0;i<9;i++){
+    if(board[i]===''){
+      board[i]='O';
+      const score=minimax(board,0,false);
+      board[i]='';
+      if(score>bestScore){bestScore=score;bestMove=i;}
+    }
+  }
+  board[bestMove]='O';
+}
+function minimax(b,depth,isMax){
+  const w=getWinner(b);
+  if(w==='O')return 10-depth;if(w==='X')return depth-10;
+  if(!b.includes(''))return 0;
+  if(isMax){
+    let best=-Infinity;
+    for(let i=0;i<9;i++){if(b[i]===''){b[i]='O';best=Math.max(best,minimax(b,depth+1,false));b[i]='';}}
+    return best;
+  }else{
+    let best=Infinity;
+    for(let i=0;i<9;i++){if(b[i]===''){b[i]='X';best=Math.min(best,minimax(b,depth+1,true));b[i]='';}}
+    return best;
+  }
+}
+
+// Share
+function getShareText(){
+  const r=lastResult==='win'?'beat':lastResult==='draw'?'tied with':'lost to';
+  return `❌⭕ I ${r} the Tic Tac Toe AI on ${difficulty} mode! Can you beat it?\n\nhttps://joy-grid.com/tic-tac-toe.html`;
+}
+function getShareUrl(){return 'https://joy-grid.com/tic-tac-toe.html';}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(getShareText()),'_blank');}
+function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(getShareUrl()),'_blank');}
+function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(getShareText()),'_blank');}
+function nativeShare(){if(navigator.share){navigator.share({title:'Joy Grid',text:getShareText(),url:getShareUrl()}).catch(function(){});}}
+function copyShareText(){navigator.clipboard.writeText(getShareText()).then(function(){var t=document.getElementById('shareToast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);});}
+if(!navigator.share){var ns=document.getElementById('nativeShareBtn');if(ns)ns.style.display='none';}
+
+newGame();
+</script>
+</body>
+</html>

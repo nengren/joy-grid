@@ -7,20 +7,20 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZJYRK04QSP");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="7DqxoOPpfo0PQeDNIBDzLEqJ08DLbEXdFALsN3DRTM8" />
-<title>Joy Grid - Free Online Puzzle Games | Sudoku, 2048, Minesweeper</title>
-<meta name="description" content="Play free online puzzle games at Joy Grid. Challenge yourself with Sudoku, 2048, Minesweeper and more classic grid-based games. No download, no signup required.">
-<meta name="keywords" content="free online games, sudoku online, 2048 game, minesweeper online, puzzle games, brain games">
+<title>Joy Grid - Free Online Puzzle Games | Sudoku, 2048, Minesweeper & More</title>
+<meta name="description" content="Play free online puzzle games at Joy Grid. Challenge yourself with Sudoku, 2048, Minesweeper, Snake, Nonogram and more classic grid-based games. No download, no signup required.">
+<meta name="keywords" content="free online games, sudoku online, 2048 game, minesweeper online, puzzle games, brain games, snake game, nonogram, tic tac toe">
 <link rel="canonical" href="https://joy-grid.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta property="og:title" content="Joy Grid - Free Online Puzzle Games">
-<meta property="og:description" content="Play Sudoku, 2048, Minesweeper and more free puzzle games online.">
+<meta property="og:description" content="Play Sudoku, 2048, Minesweeper, Snake and more free puzzle games online.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://joy-grid.com/">
 <meta property="og:site_name" content="Joy Grid">
 <meta property="og:image" content="https://joy-grid.com/og-home.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Joy Grid - Free Online Puzzle Games">
-<meta name="twitter:description" content="Play Sudoku, 2048, Wordle and more free puzzle games online.">
+<meta name="twitter:description" content="Play Sudoku, 2048, Wordle, Snake and more free puzzle games online.">
 <meta name="twitter:image" content="https://joy-grid.com/og-home.png">
 <script type="application/ld+json">
 {
@@ -28,7 +28,7 @@
   "@type": "WebSite",
   "name": "Joy Grid",
   "url": "https://joy-grid.com",
-  "description": "Free online puzzle games including Sudoku, 2048, and Minesweeper. Play instantly in your browser.",
+  "description": "Free online puzzle games including Sudoku, 2048, Minesweeper, Snake, and more. Play instantly in your browser.",
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://joy-grid.com/?q={search_term_string}",
@@ -82,6 +82,48 @@
         "applicationCategory": "Game",
         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
       }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "VideoGame",
+        "name": "Snake",
+        "url": "https://joy-grid.com/snake.html",
+        "description": "Play the classic Snake game online. Eat food, grow longer, and beat your high score!",
+        "genre": "Arcade",
+        "gamePlatform": "Web Browser",
+        "applicationCategory": "Game",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "VideoGame",
+        "name": "Nonogram",
+        "url": "https://joy-grid.com/nonogram.html",
+        "description": "Play Nonogram (Picross) puzzles online. Use number clues to reveal hidden pixel art!",
+        "genre": "Puzzle",
+        "gamePlatform": "Web Browser",
+        "applicationCategory": "Game",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "VideoGame",
+        "name": "Tic Tac Toe",
+        "url": "https://joy-grid.com/tic-tac-toe.html",
+        "description": "Play Tic Tac Toe online against AI with Easy, Medium, and Impossible difficulty.",
+        "genre": "Puzzle",
+        "gamePlatform": "Web Browser",
+        "applicationCategory": "Game",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+      }
     }
   ]
 }
@@ -111,211 +153,59 @@ body{
   min-height:100vh;
   overflow-x:hidden;
 }
-
-/* Grid pattern background */
 body::before{
-  content:'';
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  background-image:
-    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
-  background-size:40px 40px;
-  pointer-events:none;
-  z-index:0;
+  content:'';position:fixed;top:0;left:0;right:0;bottom:0;
+  background-image:linear-gradient(rgba(0,0,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.02) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0;
 }
-
-/* NAV */
-nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(250,248,245,0.9);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(0,0,0,0.06);
-  padding:0 24px;
-}
-.nav-inner{
-  max-width:1100px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;
-  height:64px;
-}
-.logo{
-  font-family:'Fredoka',sans-serif;
-  font-weight:700;font-size:1.6rem;
-  color:var(--text);text-decoration:none;
-  display:flex;align-items:center;gap:8px;
-}
-.logo-grid{
-  display:grid;grid-template-columns:repeat(2,10px);gap:3px;
-}
-.logo-grid span{
-  width:10px;height:10px;border-radius:3px;
-}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 24px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.6rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-grid{display:grid;grid-template-columns:repeat(2,10px);gap:3px}
+.logo-grid span{width:10px;height:10px;border-radius:3px}
 .logo-grid span:nth-child(1){background:var(--accent-orange)}
 .logo-grid span:nth-child(2){background:var(--accent-blue)}
 .logo-grid span:nth-child(3){background:var(--accent-purple)}
 .logo-grid span:nth-child(4){background:var(--accent-yellow)}
 .nav-links{display:flex;gap:24px;align-items:center}
-.nav-links a{
-  text-decoration:none;color:var(--text-soft);
-  font-weight:600;font-size:0.95rem;
-  transition:color 0.2s;
-}
+.nav-links a{text-decoration:none;color:var(--text-soft);font-weight:600;font-size:0.95rem;transition:color 0.2s}
 .nav-links a:hover{color:var(--accent-orange)}
-
-/* HERO */
-.hero{
-  max-width:1100px;margin:0 auto;
-  padding:80px 24px 60px;
-  text-align:center;
-  position:relative;z-index:1;
-}
-.hero h1{
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(2.4rem,6vw,4rem);
-  font-weight:700;
-  line-height:1.15;
-  margin-bottom:16px;
-}
-.hero h1 .highlight{
-  background:linear-gradient(135deg,var(--accent-orange),var(--accent-pink));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.hero p{
-  font-size:1.15rem;
-  color:var(--text-soft);
-  max-width:520px;margin:0 auto 40px;
-  line-height:1.6;
-}
-
-/* GAME CARDS */
-.games-section{
-  max-width:1100px;margin:0 auto;
-  padding:0 24px 80px;
-  position:relative;z-index:1;
-}
-.games-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:24px;
-}
-.game-card{
-  background:#fff;
-  border-radius:var(--radius);
-  overflow:hidden;
-  box-shadow:var(--card-shadow);
-  transition:transform 0.3s ease, box-shadow 0.3s ease;
-  text-decoration:none;color:inherit;
-  display:block;
-}
-.game-card:hover{
-  transform:translateY(-6px);
-  box-shadow:var(--card-hover-shadow);
-}
-.card-preview{
-  height:200px;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-}
+.hero{max-width:1100px;margin:0 auto;padding:80px 24px 60px;text-align:center;position:relative;z-index:1}
+.hero h1{font-family:'Fredoka',sans-serif;font-size:clamp(2.4rem,6vw,4rem);font-weight:700;line-height:1.15;margin-bottom:16px}
+.hero h1 .highlight{background:linear-gradient(135deg,var(--accent-orange),var(--accent-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.15rem;color:var(--text-soft);max-width:520px;margin:0 auto 40px;line-height:1.6}
+.games-section{max-width:1100px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.game-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);transition:transform 0.3s ease,box-shadow 0.3s ease;text-decoration:none;color:inherit;display:block}
+.game-card:hover{transform:translateY(-6px);box-shadow:var(--card-hover-shadow)}
+.card-preview{height:200px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .card-preview.sudoku-preview{background:linear-gradient(135deg,#e8f4f8,#d1ecf1)}
 .card-preview.game2048-preview{background:linear-gradient(135deg,#fef3e2,#fde2b5)}
 .card-preview.minesweeper-preview{background:linear-gradient(135deg,#e8e4f0,#d5cfe6)}
-
-/* Mini game previews */
-.mini-sudoku{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
-  background:#4ecdc4;padding:2px;border-radius:8px;
-  width:120px;height:120px;
-}
-.mini-sudoku div{
-  background:#fff;border-radius:2px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Fredoka',sans-serif;font-weight:600;
-  font-size:1.1rem;color:#2d7a75;
-}
-
-.mini-2048{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
-  width:130px;
-}
-.mini-2048 div{
-  aspect-ratio:1;border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Fredoka',sans-serif;font-weight:700;
-  font-size:0.85rem;color:#fff;
-}
-
-.mini-mine{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
-  width:120px;
-}
-.mini-mine div{
-  aspect-ratio:1;border-radius:3px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.75rem;font-weight:700;
-}
-
+.mini-sudoku{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#4ecdc4;padding:2px;border-radius:8px;width:120px;height:120px}
+.mini-sudoku div{background:#fff;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.1rem;color:#2d7a75}
+.mini-2048{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:130px}
+.mini-2048 div{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:0.85rem;color:#fff}
+.mini-mine{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;width:120px}
+.mini-mine div{aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700}
 .card-info{padding:24px}
-.card-info h3{
-  font-family:'Fredoka',sans-serif;
-  font-size:1.35rem;font-weight:600;
-  margin-bottom:8px;
-}
-.card-info p{
-  color:var(--text-soft);font-size:0.95rem;
-  line-height:1.5;margin-bottom:16px;
-}
+.card-info h3{font-family:'Fredoka',sans-serif;font-size:1.35rem;font-weight:600;margin-bottom:8px}
+.card-info p{color:var(--text-soft);font-size:0.95rem;line-height:1.5;margin-bottom:16px}
 .card-tags{display:flex;gap:8px;flex-wrap:wrap}
-.tag{
-  padding:4px 12px;border-radius:20px;
-  font-size:0.78rem;font-weight:600;
-}
+.tag{padding:4px 12px;border-radius:20px;font-size:0.78rem;font-weight:600}
 .tag-easy{background:#e8f8e8;color:#2d8a2d}
 .tag-medium{background:#fff3e0;color:#c67700}
 .tag-classic{background:#e8e4f0;color:#7c5cbf}
 .tag-grid{background:#e0f4f4;color:#2d7a75}
-
-/* FEATURES */
-.features{
-  max-width:1100px;margin:0 auto;
-  padding:40px 24px 80px;
-  position:relative;z-index:1;
-}
-.features h2{
-  font-family:'Fredoka',sans-serif;
-  font-size:1.6rem;text-align:center;
-  margin-bottom:40px;
-}
-.features-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-.feature-item{
-  text-align:center;padding:24px 16px;
-}
-.feature-icon{
-  font-size:2rem;margin-bottom:12px;
-}
-.feature-item h4{
-  font-family:'Fredoka',sans-serif;
-  font-size:1.05rem;margin-bottom:6px;
-}
-.feature-item p{
-  font-size:0.88rem;color:var(--text-soft);line-height:1.5;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;padding:32px 24px;
-  color:var(--text-soft);font-size:0.85rem;
-  border-top:1px solid rgba(0,0,0,0.06);
-  position:relative;z-index:1;
-}
+.features{max-width:1100px;margin:0 auto;padding:40px 24px 80px;position:relative;z-index:1}
+.features h2{font-family:'Fredoka',sans-serif;font-size:1.6rem;text-align:center;margin-bottom:40px}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.feature-item{text-align:center;padding:24px 16px}
+.feature-icon{font-size:2rem;margin-bottom:12px}
+.feature-item h4{font-family:'Fredoka',sans-serif;font-size:1.05rem;margin-bottom:6px}
+.feature-item p{font-size:0.88rem;color:var(--text-soft);line-height:1.5}
+footer{text-align:center;padding:32px 24px;color:var(--text-soft);font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.06);position:relative;z-index:1}
 footer a{color:var(--accent-orange);text-decoration:none}
-
-/* Mobile */
 @media(max-width:640px){
   .nav-links{display:none}
   .hero{padding:48px 20px 40px}
@@ -323,295 +213,425 @@ footer a{color:var(--accent-orange);text-decoration:none}
   .games-grid{grid-template-columns:1fr}
   .card-preview{height:160px}
 }
-
-/* Animations */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(24px)}
-  to{opacity:1;transform:translateY(0)}
-}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .game-card{animation:fadeUp 0.5s ease both}
 .game-card:nth-child(2){animation-delay:0.1s}
 .game-card:nth-child(3){animation-delay:0.2s}
 .game-card:nth-child(4){animation-delay:0.3s}
 .game-card:nth-child(5){animation-delay:0.4s}
 .game-card:nth-child(6){animation-delay:0.5s}
+.game-card:nth-child(7){animation-delay:0.6s}
+.game-card:nth-child(8){animation-delay:0.7s}
+.game-card:nth-child(9){animation-delay:0.8s}
+.game-card:nth-child(10){animation-delay:0.9s}
+.game-card:nth-child(11){animation-delay:1.0s}
+.game-card:nth-child(12){animation-delay:1.1s}
 </style>
 </head>
 <body>
-
 <nav>
-  <div class="nav-inner">
-    <a href="/" class="logo">
-      <div class="logo-grid"><span></span><span></span><span></span><span></span></div>
-      Joy Grid
-    </a>
-    <div class="nav-links">
-      <a href="/sudoku.html">Sudoku</a>
-      <a href="/2048.html">2048</a>
-      <a href="/minesweeper.html">Minesweeper</a>
-    </div>
-  </div>
+<div class="nav-inner">
+<a href="/" class="logo">
+<div class="logo-grid"><span></span><span></span><span></span><span></span></div>
+Joy Grid
+</a>
+<div class="nav-links">
+<a href="/sudoku.html">Sudoku</a>
+<a href="/2048.html">2048</a>
+<a href="/minesweeper.html">Minesweeper</a>
+<a href="/snake.html">Snake</a>
+</div>
+</div>
 </nav>
 
 <section class="hero">
-  <h1>Your Daily Dose of<br><span class="highlight">Grid-Based Joy</span></h1>
-  <p>Free online puzzle games to sharpen your mind. No signup, no download — just pick a game and play.</p>
+<h1>Your Daily Dose of<br><span class="highlight">Grid-Based Joy</span></h1>
+<p>Free online puzzle games to sharpen your mind. No signup, no download — just pick a game and play.</p>
 </section>
 
 <section class="games-section">
-  <div class="games-grid">
+<div class="games-grid">
 
-    <a href="/sudoku.html" class="game-card">
-      <div class="card-preview sudoku-preview">
-        <div class="mini-sudoku">
-          <div>5</div><div>3</div><div></div>
-          <div></div><div>7</div><div></div>
-          <div>6</div><div></div><div>2</div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>Sudoku</h3>
-        <p>Fill the 9×9 grid so every row, column, and 3×3 box contains digits 1-9. Daily puzzles at every difficulty.</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Classic</span>
-          <span class="tag tag-grid">9×9 Grid</span>
-          <span class="tag tag-easy">Easy → Expert</span>
-        </div>
-      </div>
-    </a>
+<!-- Sudoku -->
+<a href="/sudoku.html" class="game-card">
+<div class="card-preview sudoku-preview">
+<div class="mini-sudoku">
+<div>5</div><div>3</div><div></div>
+<div></div><div>7</div><div></div>
+<div>6</div><div></div><div>2</div>
+</div>
+</div>
+<div class="card-info">
+<h3>Sudoku</h3>
+<p>Fill the 9×9 grid so every row, column, and 3×3 box contains digits 1-9. Daily puzzles at every difficulty.</p>
+<div class="card-tags">
+<span class="tag tag-classic">Classic</span>
+<span class="tag tag-grid">9×9 Grid</span>
+<span class="tag tag-easy">Easy → Expert</span>
+</div>
+</div>
+</a>
 
-    <a href="/2048.html" class="game-card">
-      <div class="card-preview game2048-preview">
-        <div class="mini-2048">
-          <div style="background:#eee4da;color:#776e65">2</div>
-          <div style="background:#ede0c8;color:#776e65">4</div>
-          <div style="background:#f2b179;color:#fff">8</div>
-          <div style="background:#f59563;color:#fff">16</div>
-          <div style="background:#f67c5f;color:#fff">32</div>
-          <div style="background:#f65e3b;color:#fff">64</div>
-          <div style="background:#edcf72;color:#fff">128</div>
-          <div style="background:#edcc61;color:#fff">256</div>
-          <div style="background:#edc850;color:#fff">512</div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>2048</h3>
-        <p>Slide numbered tiles on a grid. When two tiles with the same number touch, they merge. Can you reach 2048?</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Addictive</span>
-          <span class="tag tag-grid">4×4 Grid</span>
-          <span class="tag tag-medium">Strategy</span>
-        </div>
-      </div>
-    </a>
+<!-- 2048 -->
+<a href="/2048.html" class="game-card">
+<div class="card-preview game2048-preview">
+<div class="mini-2048">
+<div style="background:#eee4da;color:#776e65">2</div>
+<div style="background:#ede0c8;color:#776e65">4</div>
+<div style="background:#f2b179;color:#fff">8</div>
+<div style="background:#f59563;color:#fff">16</div>
+<div style="background:#f67c5f;color:#fff">32</div>
+<div style="background:#f65e3b;color:#fff">64</div>
+<div style="background:#edcf72;color:#fff">128</div>
+<div style="background:#edcc61;color:#fff">256</div>
+<div style="background:#edc850;color:#fff">512</div>
+</div>
+</div>
+<div class="card-info">
+<h3>2048</h3>
+<p>Slide numbered tiles on a grid. When two tiles with the same number touch, they merge. Can you reach 2048?</p>
+<div class="card-tags">
+<span class="tag tag-classic">Addictive</span>
+<span class="tag tag-grid">4×4 Grid</span>
+<span class="tag tag-medium">Strategy</span>
+</div>
+</div>
+</a>
 
-    <a href="/minesweeper.html" class="game-card">
-      <div class="card-preview minesweeper-preview">
-        <div class="mini-mine">
-          <div style="background:#d5cfe6">1</div>
-          <div style="background:#d5cfe6;color:#c0392b">💣</div>
-          <div style="background:#e8e4f0"></div>
-          <div style="background:#d5cfe6">2</div>
-          <div style="background:#e8e4f0"></div>
-          <div style="background:#d5cfe6;color:#2980b9">1</div>
-          <div style="background:#d5cfe6;color:#27ae60">3</div>
-          <div style="background:#e8e4f0"></div>
-          <div style="background:#d5cfe6;color:#2980b9">1</div>
-          <div style="background:#e8e4f0"></div>
-          <div style="background:#d5cfe6">🚩</div>
-          <div style="background:#d5cfe6;color:#8e44ad">1</div>
-          <div style="background:#e8e4f0"></div>
-          <div style="background:#d5cfe6;color:#2980b9">1</div>
-          <div style="background:#e8e4f0"></div>
-          <div style="background:#d5cfe6;color:#c0392b">2</div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>Minesweeper</h3>
-        <p>Uncover squares without hitting mines. Use number clues to figure out where the mines are hiding.</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Classic</span>
-          <span class="tag tag-grid">Grid Logic</span>
-          <span class="tag tag-easy">Easy → Hard</span>
-        </div>
-      </div>
-    </a>
+<!-- Minesweeper -->
+<a href="/minesweeper.html" class="game-card">
+<div class="card-preview minesweeper-preview">
+<div class="mini-mine">
+<div style="background:#d5cfe6">1</div>
+<div style="background:#d5cfe6;color:#c0392b">💣</div>
+<div style="background:#e8e4f0"></div>
+<div style="background:#d5cfe6">2</div>
+<div style="background:#e8e4f0"></div>
+<div style="background:#d5cfe6;color:#2980b9">1</div>
+<div style="background:#d5cfe6;color:#27ae60">3</div>
+<div style="background:#e8e4f0"></div>
+<div style="background:#d5cfe6;color:#2980b9">1</div>
+<div style="background:#e8e4f0"></div>
+<div style="background:#d5cfe6">🚩</div>
+<div style="background:#d5cfe6;color:#8e44ad">1</div>
+<div style="background:#e8e4f0"></div>
+<div style="background:#d5cfe6;color:#2980b9">1</div>
+<div style="background:#e8e4f0"></div>
+<div style="background:#d5cfe6;color:#c0392b">2</div>
+</div>
+</div>
+<div class="card-info">
+<h3>Minesweeper</h3>
+<p>Uncover squares without hitting mines. Use number clues to figure out where the mines are hiding.</p>
+<div class="card-tags">
+<span class="tag tag-classic">Classic</span>
+<span class="tag tag-grid">Grid Logic</span>
+<span class="tag tag-easy">Easy → Hard</span>
+</div>
+</div>
+</a>
 
-    <a href="/wordle.html" class="game-card">
-      <div class="card-preview" style="background:linear-gradient(135deg,#e8f0e8,#d1e8d1)">
-        <div style="display:flex;gap:5px">
-          <div style="width:42px;height:42px;background:#6aaa64;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">J</div>
-          <div style="width:42px;height:42px;background:#c9b458;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">O</div>
-          <div style="width:42px;height:42px;background:#787c7e;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">Y</div>
-          <div style="width:42px;height:42px;background:#6aaa64;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">F</div>
-          <div style="width:42px;height:42px;background:#c9b458;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">U</div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>Wordle</h3>
-        <p>Guess the 5-letter word in 6 tries. Green = correct, yellow = wrong spot. Daily puzzles + unlimited mode.</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Viral Hit</span>
-          <span class="tag tag-grid">5 Letters</span>
-          <span class="tag tag-easy">Daily</span>
-        </div>
-      </div>
-    </a>
+<!-- Snake (NEW) -->
+<a href="/snake.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#e0f4e8,#c8edda)">
+<div style="display:grid;grid-template-columns:repeat(6,22px);gap:2px">
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#ff6b35;border-radius:50%"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#2d8a6e;border-radius:4px"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#4ecdc4"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#4ecdc4"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#4ecdc4"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#4ecdc4"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#4ecdc4"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+<div style="width:22px;height:22px;border-radius:3px;background:#e8f5ee"></div>
+</div>
+</div>
+<div class="card-info">
+<h3>Snake</h3>
+<p>Guide the snake to eat food and grow longer. Don't crash into walls or yourself! Choose Easy, Normal, or Fast speed.</p>
+<div class="card-tags">
+<span class="tag tag-classic">Classic</span>
+<span class="tag tag-grid">20×20 Grid</span>
+<span class="tag tag-medium">Arcade</span>
+</div>
+</div>
+</a>
 
-    <a href="/word-search.html" class="game-card">
-      <div class="card-preview" style="background:linear-gradient(135deg,#e0f4f4,#ccede8)">
-        <div style="display:grid;grid-template-columns:repeat(4,32px);gap:3px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:0.95rem;color:#2d7a75">
-          <div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">T</div>
-          <div style="width:32px;height:32px;background:#4ecdc4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff">I</div>
-          <div style="width:32px;height:32px;background:#4ecdc4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff">G</div>
-          <div style="width:32px;height:32px;background:#4ecdc4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff">E</div>
-          <div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">X</div>
-          <div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">M</div>
-          <div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">A</div>
-          <div style="width:32px;height:32px;background:#4ecdc4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff">R</div>
-          <div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">P</div>
-          <div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">K</div>
-          <div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">W</div>
-          <div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">L</div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>Word Search</h3>
-        <p>Find hidden words in a grid of letters. Themed puzzles with words going in all directions.</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Classic</span>
-          <span class="tag tag-grid">10×10 Grid</span>
-          <span class="tag tag-easy">Themed</span>
-        </div>
-      </div>
-    </a>
+<!-- Wordle -->
+<a href="/wordle.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#e8f0e8,#d1e8d1)">
+<div style="display:flex;gap:5px">
+<div style="width:42px;height:42px;background:#6aaa64;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">J</div>
+<div style="width:42px;height:42px;background:#c9b458;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">O</div>
+<div style="width:42px;height:42px;background:#787c7e;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">Y</div>
+<div style="width:42px;height:42px;background:#6aaa64;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">F</div>
+<div style="width:42px;height:42px;background:#c9b458;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem">U</div>
+</div>
+</div>
+<div class="card-info">
+<h3>Wordle</h3>
+<p>Guess the 5-letter word in 6 tries. Green = correct, yellow = wrong spot. Daily puzzles + unlimited mode.</p>
+<div class="card-tags">
+<span class="tag tag-classic">Viral Hit</span>
+<span class="tag tag-grid">5 Letters</span>
+<span class="tag tag-easy">Daily</span>
+</div>
+</div>
+</a>
 
-    <a href="/sliding-puzzle.html" class="game-card">
-      <div class="card-preview" style="background:linear-gradient(135deg,#fef0e8,#fde0cc)">
-        <div style="display:grid;grid-template-columns:repeat(3,42px);gap:4px">
-          <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">1</div>
-          <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">2</div>
-          <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">3</div>
-          <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#4ecdc4,#3aa89f);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">4</div>
-          <div style="width:42px;height:42px;border-radius:8px;background:rgba(0,0,0,0.06)"></div>
-          <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">5</div>
-          <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">7</div>
-          <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">8</div>
-          <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#4ecdc4,#3aa89f);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">6</div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>Sliding Puzzle</h3>
-        <p>Slide numbered tiles to arrange them in order. Choose 3×3, 4×4, or 5×5 grid.</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Classic</span>
-          <span class="tag tag-grid">Grid</span>
-          <span class="tag tag-easy">Easy → Hard</span>
-        </div>
-      </div>
-    </a>
+<!-- Nonogram (NEW) -->
+<a href="/nonogram.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#f0ecf8,#e0d8f0)">
+<div style="display:grid;grid-template-columns:repeat(5,28px);gap:3px">
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:#7c5cbf"></div>
+<div style="width:28px;height:28px;border-radius:4px;background:rgba(124,92,191,0.15)"></div>
+</div>
+</div>
+<div class="card-info">
+<h3>Nonogram</h3>
+<p>Use number clues to fill cells and reveal hidden pixel art. Also known as Picross or Paint by Numbers.</p>
+<div class="card-tags">
+<span class="tag tag-classic">Logic</span>
+<span class="tag tag-grid">5×5 / 10×10</span>
+<span class="tag tag-medium">Pixel Art</span>
+</div>
+</div>
+</a>
 
-    <a href="/memory-match.html" class="game-card">
-      <div class="card-preview" style="background:linear-gradient(135deg,#e8e4f0,#d5cfe6)">
-        <div style="display:grid;grid-template-columns:repeat(4,40px);gap:5px">
-          <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(145deg,#7c5cbf,#9b7dd4);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem">?</div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🐶</div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🦊</div>
-          <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(145deg,#7c5cbf,#9b7dd4);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem">?</div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🐶</div>
-          <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(145deg,#7c5cbf,#9b7dd4);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem">?</div>
-          <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(145deg,#7c5cbf,#9b7dd4);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem">?</div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🦊</div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>Memory Match</h3>
-        <p>Flip cards to find matching emoji pairs. Test your memory with Easy, Medium, and Hard modes.</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Fun</span>
-          <span class="tag tag-grid">Card Grid</span>
-          <span class="tag tag-easy">All Ages</span>
-        </div>
-      </div>
-    </a>
+<!-- Word Search -->
+<a href="/word-search.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#e0f4f4,#ccede8)">
+<div style="display:grid;grid-template-columns:repeat(4,32px);gap:3px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:0.95rem;color:#2d7a75">
+<div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">T</div>
+<div style="width:32px;height:32px;background:#4ecdc4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff">I</div>
+<div style="width:32px;height:32px;background:#4ecdc4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff">G</div>
+<div style="width:32px;height:32px;background:#4ecdc4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff">E</div>
+<div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">X</div>
+<div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">M</div>
+<div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">A</div>
+<div style="width:32px;height:32px;background:#4ecdc4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff">R</div>
+<div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">P</div>
+<div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">K</div>
+<div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">W</div>
+<div style="width:32px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center">L</div>
+</div>
+</div>
+<div class="card-info">
+<h3>Word Search</h3>
+<p>Find hidden words in a grid of letters. Themed puzzles with words going in all directions.</p>
+<div class="card-tags">
+<span class="tag tag-classic">Classic</span>
+<span class="tag tag-grid">10×10 Grid</span>
+<span class="tag tag-easy">Themed</span>
+</div>
+</div>
+</a>
 
-    <a href="/color-flood.html" class="game-card">
-      <div class="card-preview" style="background:linear-gradient(135deg,#e0f4f4,#d1ecf1)">
-        <div style="display:grid;grid-template-columns:repeat(5,28px);gap:2px">
-          <div style="width:28px;height:28px;border-radius:3px;background:#4ecdc4"></div><div style="width:28px;height:28px;border-radius:3px;background:#4ecdc4"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b35"></div><div style="width:28px;height:28px;border-radius:3px;background:#7c5cbf"></div><div style="width:28px;height:28px;border-radius:3px;background:#ffd93d"></div>
-          <div style="width:28px;height:28px;border-radius:3px;background:#4ecdc4"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b8a"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b35"></div><div style="width:28px;height:28px;border-radius:3px;background:#5bb5e0"></div><div style="width:28px;height:28px;border-radius:3px;background:#ffd93d"></div>
-          <div style="width:28px;height:28px;border-radius:3px;background:#7c5cbf"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b8a"></div><div style="width:28px;height:28px;border-radius:3px;background:#4ecdc4"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b35"></div><div style="width:28px;height:28px;border-radius:3px;background:#5bb5e0"></div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>Color Flood</h3>
-        <p>Start from the corner and flood the board with one color. Can you do it in 25 moves or fewer?</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Strategy</span>
-          <span class="tag tag-grid">14×14 Grid</span>
-          <span class="tag tag-medium">Colorful</span>
-        </div>
-      </div>
-    </a>
+<!-- Tic Tac Toe (NEW) -->
+<a href="/tic-tac-toe.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#fff0e8,#ffe0cc)">
+<div style="display:grid;grid-template-columns:repeat(3,44px);gap:6px">
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;color:#ff6b35">X</div>
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;color:#4ecdc4">O</div>
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;color:#ff6b35">X</div>
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center"></div>
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;color:#ff6b35">X</div>
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;color:#4ecdc4">O</div>
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;color:#4ecdc4">O</div>
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center"></div>
+<div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;color:#ff6b35">X</div>
+</div>
+</div>
+<div class="card-info">
+<h3>Tic Tac Toe</h3>
+<p>Classic X and O game against a smart AI. Choose Easy, Medium, or Impossible difficulty. Can you beat it?</p>
+<div class="card-tags">
+<span class="tag tag-classic">Classic</span>
+<span class="tag tag-grid">3×3 Grid</span>
+<span class="tag tag-easy">vs AI</span>
+</div>
+</div>
+</a>
 
-    <a href="/lights-out.html" class="game-card">
-      <div class="card-preview" style="background:linear-gradient(135deg,#1a1930,#0f0e17)">
-        <div style="display:grid;grid-template-columns:repeat(3,40px);gap:6px">
-          <div style="width:40px;height:40px;border-radius:8px;background:#ffd93d;box-shadow:0 0 15px rgba(255,217,61,0.5)"></div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#ffd93d;box-shadow:0 0 15px rgba(255,217,61,0.5)"></div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#ffd93d;box-shadow:0 0 15px rgba(255,217,61,0.5)"></div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#ffd93d;box-shadow:0 0 15px rgba(255,217,61,0.5)"></div>
-          <div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3>Lights Out</h3>
-        <p>Click a light to toggle it and its neighbors. Turn all the lights off to solve the puzzle!</p>
-        <div class="card-tags">
-          <span class="tag tag-classic">Logic</span>
-          <span class="tag tag-grid">5×5 Grid</span>
-          <span class="tag tag-medium">Brain Teaser</span>
-        </div>
-      </div>
-    </a>
+<!-- Sliding Puzzle -->
+<a href="/sliding-puzzle.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#fef0e8,#fde0cc)">
+<div style="display:grid;grid-template-columns:repeat(3,42px);gap:4px">
+<div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">1</div>
+<div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">2</div>
+<div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">3</div>
+<div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#4ecdc4,#3aa89f);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">4</div>
+<div style="width:42px;height:42px;border-radius:8px;background:rgba(0,0,0,0.06)"></div>
+<div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">5</div>
+<div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">7</div>
+<div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#ff7b45,#ff5e20);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">8</div>
+<div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(145deg,#4ecdc4,#3aa89f);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem">6</div>
+</div>
+</div>
+<div class="card-info">
+<h3>Sliding Puzzle</h3>
+<p>Slide numbered tiles to arrange them in order. Choose 3×3, 4×4, or 5×5 grid.</p>
+<div class="card-tags">
+<span class="tag tag-classic">Classic</span>
+<span class="tag tag-grid">Grid</span>
+<span class="tag tag-easy">Easy → Hard</span>
+</div>
+</div>
+</a>
 
-  </div>
+<!-- Memory Match -->
+<a href="/memory-match.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#e8e4f0,#d5cfe6)">
+<div style="display:grid;grid-template-columns:repeat(4,40px);gap:5px">
+<div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(145deg,#7c5cbf,#9b7dd4);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem">?</div>
+<div style="width:40px;height:40px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🐶</div>
+<div style="width:40px;height:40px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🦊</div>
+<div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(145deg,#7c5cbf,#9b7dd4);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem">?</div>
+<div style="width:40px;height:40px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🐶</div>
+<div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(145deg,#7c5cbf,#9b7dd4);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem">?</div>
+<div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(145deg,#7c5cbf,#9b7dd4);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem">?</div>
+<div style="width:40px;height:40px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🦊</div>
+</div>
+</div>
+<div class="card-info">
+<h3>Memory Match</h3>
+<p>Flip cards to find matching emoji pairs. Test your memory with Easy, Medium, and Hard modes.</p>
+<div class="card-tags">
+<span class="tag tag-classic">Fun</span>
+<span class="tag tag-grid">Card Grid</span>
+<span class="tag tag-easy">All Ages</span>
+</div>
+</div>
+</a>
+
+<!-- Color Flood -->
+<a href="/color-flood.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#e0f4f4,#d1ecf1)">
+<div style="display:grid;grid-template-columns:repeat(5,28px);gap:2px">
+<div style="width:28px;height:28px;border-radius:3px;background:#4ecdc4"></div><div style="width:28px;height:28px;border-radius:3px;background:#4ecdc4"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b35"></div><div style="width:28px;height:28px;border-radius:3px;background:#7c5cbf"></div><div style="width:28px;height:28px;border-radius:3px;background:#ffd93d"></div>
+<div style="width:28px;height:28px;border-radius:3px;background:#4ecdc4"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b8a"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b35"></div><div style="width:28px;height:28px;border-radius:3px;background:#5bb5e0"></div><div style="width:28px;height:28px;border-radius:3px;background:#ffd93d"></div>
+<div style="width:28px;height:28px;border-radius:3px;background:#7c5cbf"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b8a"></div><div style="width:28px;height:28px;border-radius:3px;background:#4ecdc4"></div><div style="width:28px;height:28px;border-radius:3px;background:#ff6b35"></div><div style="width:28px;height:28px;border-radius:3px;background:#5bb5e0"></div>
+</div>
+</div>
+<div class="card-info">
+<h3>Color Flood</h3>
+<p>Start from the corner and flood the board with one color. Can you do it in 25 moves or fewer?</p>
+<div class="card-tags">
+<span class="tag tag-classic">Strategy</span>
+<span class="tag tag-grid">14×14 Grid</span>
+<span class="tag tag-medium">Colorful</span>
+</div>
+</div>
+</a>
+
+<!-- Lights Out -->
+<a href="/lights-out.html" class="game-card">
+<div class="card-preview" style="background:linear-gradient(135deg,#1a1930,#0f0e17)">
+<div style="display:grid;grid-template-columns:repeat(3,40px);gap:6px">
+<div style="width:40px;height:40px;border-radius:8px;background:#ffd93d;box-shadow:0 0 15px rgba(255,217,61,0.5)"></div>
+<div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
+<div style="width:40px;height:40px;border-radius:8px;background:#ffd93d;box-shadow:0 0 15px rgba(255,217,61,0.5)"></div>
+<div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
+<div style="width:40px;height:40px;border-radius:8px;background:#ffd93d;box-shadow:0 0 15px rgba(255,217,61,0.5)"></div>
+<div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
+<div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
+<div style="width:40px;height:40px;border-radius:8px;background:#ffd93d;box-shadow:0 0 15px rgba(255,217,61,0.5)"></div>
+<div style="width:40px;height:40px;border-radius:8px;background:#1a1930;border:1px solid rgba(255,255,255,0.05)"></div>
+</div>
+</div>
+<div class="card-info">
+<h3>Lights Out</h3>
+<p>Click a light to toggle it and its neighbors. Turn all the lights off to solve the puzzle!</p>
+<div class="card-tags">
+<span class="tag tag-classic">Logic</span>
+<span class="tag tag-grid">5×5 Grid</span>
+<span class="tag tag-medium">Brain Teaser</span>
+</div>
+</div>
+</a>
+
+</div>
 </section>
 
 <section class="features">
-  <h2>Why Joy Grid?</h2>
-  <div class="features-grid">
-    <div class="feature-item">
-      <div class="feature-icon">⚡</div>
-      <h4>Instant Play</h4>
-      <p>No signup, no download. Click and play immediately on any device.</p>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon">📱</div>
-      <h4>Mobile Friendly</h4>
-      <p>Optimized for touch screens. Play on your phone, tablet, or desktop.</p>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon">🏆</div>
-      <h4>Track Your Best</h4>
-      <p>Your personal best scores saved locally. Challenge yourself to improve.</p>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon">🎯</div>
-      <h4>All Skill Levels</h4>
-      <p>From beginner-friendly to expert challenges. Everyone finds their zone.</p>
-    </div>
-  </div>
+<h2>Why Joy Grid?</h2>
+<div class="features-grid">
+<div class="feature-item">
+<div class="feature-icon">⚡</div>
+<h4>Instant Play</h4>
+<p>No signup, no download. Click and play immediately on any device.</p>
+</div>
+<div class="feature-item">
+<div class="feature-icon">📱</div>
+<h4>Mobile Friendly</h4>
+<p>Optimized for touch screens. Play on your phone, tablet, or desktop.</p>
+</div>
+<div class="feature-item">
+<div class="feature-icon">🏆</div>
+<h4>Track Your Best</h4>
+<p>Your personal best scores saved locally. Challenge yourself to improve.</p>
+</div>
+<div class="feature-item">
+<div class="feature-icon">🎯</div>
+<h4>All Skill Levels</h4>
+<p>From beginner-friendly to expert challenges. Everyone finds their zone.</p>
+</div>
+</div>
 </section>
 
 <footer>
-  <p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p>
-  <p style="margin-top:8px">&copy; 2026 Joy Grid. Free online puzzle games.</p>
+<p><a href="/">Joy Grid</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></p>
+<p style="margin-top:8px">&copy; 2026 Joy Grid. Free online puzzle games.</p>
 </footer>
-
 </body>
 </html>
